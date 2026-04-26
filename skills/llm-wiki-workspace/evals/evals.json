@@ -1,0 +1,23 @@
+{
+  "skill_name": "llm-wiki-workspace",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "我这个项目文件夹里既有 markdown 笔记，也有 csv 和 python 脚本。帮我整理成一个适合长期维护的 LLM Wiki，并写好 AGENTS.md。",
+      "expected_output": "Creates a sensible workspace structure, explains where notes/data/scripts belong, and writes a repo-local schema file.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "把这份新 PDF 和两篇 markdown 资料 ingest 进现有 wiki，更新 topic 页和 index/log，但不要把原始资料改坏。",
+      "expected_output": "Reads sources, updates source pages and higher-level wiki pages, preserves raw inputs, and records the ingest operation.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "这个目录越来越乱了，帮我判断哪些文件是 raw，哪些是 outputs，哪些应该进 wiki，还要顺手修复脚本默认输出路径。",
+      "expected_output": "Distinguishes layers correctly, avoids over-moving source files, and aligns script outputs with the workspace structure.",
+      "files": []
+    }
+  ]
+}

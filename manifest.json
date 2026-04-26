@@ -1,0 +1,48 @@
+{
+  "name": "xuelixunhua-s-skills",
+  "description": "Personal Codex skills maintained by xuelixunhua.",
+  "skills": [
+    {
+      "name": "bggg-skill-taotie",
+      "path": "skills/bggg-skill-taotie",
+      "source": "~/.codex/skills/bggg-skill-taotie"
+    },
+    {
+      "name": "content-master",
+      "path": "skills/content-master",
+      "source": "~/.codex/skills/content-master"
+    },
+    {
+      "name": "llm-wiki-workspace",
+      "path": "skills/llm-wiki-workspace",
+      "source": "~/.codex/skills/llm-wiki-workspace"
+    },
+    {
+      "name": "primitive-thinking",
+      "path": "skills/primitive-thinking",
+      "source": "~/.codex/skills/primitive-thinking"
+    },
+    {
+      "name": "research-synthesis",
+      "path": "skills/research-synthesis",
+      "source": "~/.codex/skills/research-synthesis"
+    },
+    {
+      "name": "web-access",
+      "path": "skills/web-access",
+      "source": "~/.codex/skills/web-access"
+    },
+    {
+      "name": "skill-creator",
+      "path": "skills/skill-creator",
+      "source": "~/.agents/skills/skill-creator"
+    }
+  ],
+  "excluded": [
+    "~/.codex/skills/.system",
+    "~/.codex/skills/thread-handoff",
+    "~/.agents/skills/content-master.archived-20260409",
+    "~/.skills/commodity-research"
+  ]
+}
+
