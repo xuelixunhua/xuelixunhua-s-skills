@@ -34,7 +34,7 @@ description: |
 
 ### 能力一：思维分析
 - 核心：从真实问题入口出发，选择跨学科工具箱，把混沌问题变成可判断、可行动、可复盘的结构
-- 工具：问题链、抽象建模、系统性思考、供需与边际调节思维、数据分析、函数化分析、贝叶斯更新、财务报表分析、模块化拆解、第一性原理等
+- 入口与工具：选择三问、利益-成本-信仰、问题链、抽象建模、系统性思考、供需与边际调节思维、数据分析、函数化分析、贝叶斯更新、财务报表分析、模块化拆解、第一性原理等
 - 详见：[thinking-analysis.md](thinking-analysis.md)，复杂问题可继续调用 [references/cross-disciplinary-thinking-toolbox.md](references/cross-disciplinary-thinking-toolbox.md)
 
 ### 能力二：笔记处理
