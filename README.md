@@ -2,17 +2,37 @@
 
 Personal Codex skills maintained by xuelixunhua.
 
+## Recent Updates
+
+- 2026-06-05: refreshed `content-master` from the local Codex skill. The thinking-analysis module is now a problem-first dispatcher backed by `references/cross-disciplinary-thinking-toolbox.md`, with additional eval prompts for career choice, procrastination/system analysis, and industry-opportunity judgment.
+- 2026-06-05: refreshed `skill-creator` from the local Agents skill. It now adds a harness audit before editing reference files, separating the control plane from the knowledge plane.
+
 ## Skills
 
 | Skill | Source on maintainer machine | Notes |
 | --- | --- | --- |
 | `bggg-skill-taotie` | `~/.codex/skills/bggg-skill-taotie` | Skill evolution and skill-merging workflow. |
-| `content-master` | `~/.codex/skills/content-master` | Content thinking, note processing, and WeChat/article writing. |
+| `content-master` | `~/.codex/skills/content-master` | Content thinking, note processing, WeChat/article writing, and problem-first thinking analysis. |
 | `llm-wiki-workspace` | `~/.codex/skills/llm-wiki-workspace` | Markdown-first long-lived LLM wiki workspace. |
 | `primitive-thinking` | `~/.codex/skills/primitive-thinking` | Primitive, niche opportunity, and frugal stack thinking. |
 | `research-synthesis` | `~/.codex/skills/research-synthesis` | Investment research synthesis and framework notes. |
 | `web-access` | `~/.codex/skills/web-access` | Browser/web access workflow and helper scripts. |
-| `skill-creator` | `~/.agents/skills/skill-creator` | Prompt and skill design workflow. |
+| `skill-creator` | `~/.agents/skills/skill-creator` | Prompt and skill design workflow, including harness/control-plane audits. |
+
+## Repository Layout
+
+```text
+skills/
+  content-master/
+    SKILL.md
+    thinking-analysis.md
+    references/cross-disciplinary-thinking-toolbox.md
+    evals/evals.json
+  skill-creator/
+    SKILL.md
+    references/
+    scripts/
+```
 
 ## Install Into Codex
 
@@ -67,4 +87,3 @@ This repository intentionally excludes:
 - plugin caches, vendor imports, session databases, logs, auth files, and generated runtime state
 - old archived local skills that are no longer maintained
 - third-party proprietary skill bundles unless their license clearly allows redistribution
-

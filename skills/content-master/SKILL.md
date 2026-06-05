@@ -2,7 +2,7 @@
 name: content-master
 description: |
   内容创作全流程大师，整合思维分析、笔记整理、公众号写作三大能力。适用场景：
-  (1) 思维分析：分析问题本质、拆解任务、做决策
+  (1) 思维分析：分析问题本质、拆解任务、做决策、做选择判断，按真实问题入口调用跨学科工具箱
   (2) 笔记整理：整理笔记、会议记录、知识结晶
   (3) 公众号写作：把素材、笔记、PDF、访谈、个人经历加工成具有"活人感"和传播价值的深度长文
 
@@ -26,15 +26,16 @@ description: |
 
 | 用户需求 | 能力层 | 详细方法论 |
 |---------|--------|-----------|
-| "帮我分析...""如何决策...""怎么拆解..." | 思维分析 | 见 [thinking-analysis.md](thinking-analysis.md) |
+| "帮我分析...""如何决策...""怎么拆解...""帮我判断...""怎么选..." | 思维分析 | 见 [thinking-analysis.md](thinking-analysis.md) |
 | "整理笔记""会议纪要""知识结晶" | 笔记处理 | 见 [note-processing.md](note-processing.md) |
 | "写公众号""检查草稿""取标题" | 公众号创作 | 见 [writing-creation.md](writing-creation.md) |
 
 ## 能力概览
 
 ### 能力一：思维分析
-- 工具：利益溯源、成本分析、供需分析、系统思维、第一性原理、流程拆解、逆向工程等
-- 详见：[thinking-analysis.md](thinking-analysis.md)
+- 核心：从真实问题入口出发，选择跨学科工具箱，把混沌问题变成可判断、可行动、可复盘的结构
+- 工具：问题链、抽象建模、系统性思考、供需与边际调节思维、数据分析、函数化分析、贝叶斯更新、财务报表分析、模块化拆解、第一性原理等
+- 详见：[thinking-analysis.md](thinking-analysis.md)，复杂问题可继续调用 [references/cross-disciplinary-thinking-toolbox.md](references/cross-disciplinary-thinking-toolbox.md)
 
 ### 能力二：笔记处理
 - 工具：笔记解构、会议记录、知识结晶、深度分析

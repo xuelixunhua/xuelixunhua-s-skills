@@ -195,6 +195,16 @@ For skills:
 - upgrade the philosophy before adding procedural weight
 - only then revisit evals, scripts, and references
 
+Before editing a skill's reference files, run a harness audit:
+
+1. Identify the control plane: which file decides when and how the skill calls tools, references, and workflows.
+2. Identify the knowledge plane: which reference files only provide facts, examples, frameworks, or domain detail.
+3. Move routing, selection, and orchestration rules into the control plane; do not duplicate them inside reference material.
+4. Keep reference files focused on necessary facts and deep method detail, not caller logic.
+5. Check whether the proposed change strengthens triggering, strategy philosophy, or tool selection before adding content.
+
+When a skill feels weak, inspect the control plane first. Adding richer references rarely fixes a poor harness if the caller still does not know what to select, when to select it, or how to stop.
+
 ## Evaluation and Iteration
 
 Use the lightest evaluation loop that matches the stakes:
