@@ -13,6 +13,11 @@
       "source": "~/.codex/skills/content-master"
     },
     {
+      "name": "creator-content-knowledge-pipeline",
+      "path": "skills/creator-content-knowledge-pipeline",
+      "source": "~/.codex/skills/creator-content-knowledge-pipeline"
+    },
+    {
       "name": "llm-wiki-workspace",
       "path": "skills/llm-wiki-workspace",
       "source": "~/.codex/skills/llm-wiki-workspace"
@@ -45,4 +50,3 @@
     "~/.skills/commodity-research"
   ]
 }
-
