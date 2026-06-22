@@ -4,6 +4,7 @@ Personal Codex skills maintained by xuelixunhua.
 
 ## Recent Updates
 
+- 2026-06-22: refreshed `llm-wiki-workspace` with the vertical knowledge-base branch, including three-layer material handling and first-layer viewpoint index entries for sources that need callable conclusions without becoming standalone notes.
 - 2026-06-13: added `creator-content-knowledge-pipeline`, a creator/content-to-knowledge-base pipeline skill for turning Bilibili UPs, podcasts, courses, or video series into vertical knowledge-base products and reusable production engines.
 - 2026-06-05: refreshed `content-master` from the local Codex skill. The thinking-analysis module is now a problem-first dispatcher backed by `references/cross-disciplinary-thinking-toolbox.md`, with additional eval prompts for career choice, procrastination/system analysis, and industry-opportunity judgment.
 - 2026-06-05: refreshed `skill-creator` from the local Agents skill. It now adds a harness audit before editing reference files, separating the control plane from the knowledge plane.
@@ -15,7 +16,7 @@ Personal Codex skills maintained by xuelixunhua.
 | `bggg-skill-taotie` | `~/.codex/skills/bggg-skill-taotie` | Skill evolution and skill-merging workflow. |
 | `content-master` | `~/.codex/skills/content-master` | Content thinking, note processing, WeChat/article writing, and problem-first thinking analysis. |
 | `creator-content-knowledge-pipeline` | `~/.codex/skills/creator-content-knowledge-pipeline` | Creator/video-to-knowledge-base pipeline for Layer 3 vertical knowledge products and Layer 4 production engines. |
-| `llm-wiki-workspace` | `~/.codex/skills/llm-wiki-workspace` | Markdown-first long-lived LLM wiki workspace. |
+| `llm-wiki-workspace` | `~/.codex/skills/llm-wiki-workspace` | Markdown-first LLM wiki plus vertical/domain knowledge-base harness. |
 | `primitive-thinking` | `~/.codex/skills/primitive-thinking` | Primitive, niche opportunity, and frugal stack thinking. |
 | `research-synthesis` | `~/.codex/skills/research-synthesis` | Investment research synthesis and framework notes. |
 | `web-access` | `~/.codex/skills/web-access` | Browser/web access workflow and helper scripts. |
