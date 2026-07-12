@@ -13,6 +13,28 @@ Checklist:
 - create `AGENTS.md`
 - create `wiki/index.md` and `wiki/log.md`
 
+## Build Vertical Knowledge Base
+
+Use this when the user wants the workspace to become a domain knowledge base rather than only a clean folder.
+Read `references/vertical-knowledge-base.md` for the full harness.
+
+Initial build checklist:
+
+- inspect the folder and identify existing master notes, source folders, and applied cases
+- define the domain boundary and application target
+- create or repair the three-layer folder structure
+- create or update the third-layer main note, material index, README, and AGENTS.md
+- create optional application/case/open-question pages only when the material justifies separate files
+- update `wiki/index.md` and `wiki/log.md` if the workspace already uses a wiki layer
+
+Supplemental build checklist:
+
+- read README, AGENTS.md, the third-layer main note, and the material index first
+- classify incoming material as first-layer source, second-layer compressed note, third-layer framework update, case, conflict, or open question
+- index first-layer sources directly when standalone second-layer notes would add clutter
+- merge durable knowledge into the existing third-layer body or index
+- preserve source lineage and update navigation
+
 ## Ingest
 
 Use ingest when new source material arrives.

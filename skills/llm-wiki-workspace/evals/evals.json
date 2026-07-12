@@ -18,6 +18,30 @@
       "prompt": "这个目录越来越乱了，帮我判断哪些文件是 raw，哪些是 outputs，哪些应该进 wiki，还要顺手修复脚本默认输出路径。",
       "expected_output": "Distinguishes layers correctly, avoids over-moving source files, and aligns script outputs with the workspace structure.",
       "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "这个文件夹里有几本关于组织权力的书籍笔记和一些职场案例，我想初次建设一个垂直知识库，让以后遇到类似事情时能调用这些知识来分析。",
+      "expected_output": "Chooses vertical knowledge base mode, defines the domain boundary, creates or repairs a three-layer material structure, establishes a third-layer main note plus material index, and updates README/AGENTS/index/log without turning the work into loose summaries.",
+      "files": []
+    },
+    {
+      "id": 5,
+      "prompt": "现有技术分析知识库已经有第三层主笔记和资料索引了。把这份新交易复盘补充进去，注意不要另开一份总结，要判断它属于哪一层并更新主笔记或索引。",
+      "expected_output": "Chooses supplemental vertical knowledge base mode, reads the existing third-layer main note and material index first, classifies the new material by layer, strengthens existing third-layer knowledge or index entries, preserves provenance, and updates navigation/log.",
+      "files": []
+    },
+    {
+      "id": 6,
+      "prompt": "我看到一个 AI 产业链知识网站做得很好，想先学习它的方法，不要马上建站，也不要做知识图谱。请把它的数据处理、对象模型、参考资料和可迁移逻辑沉淀到现有方法论文档里。",
+      "expected_output": "Chooses method-learning mode, studies the external artifact as a reference, updates an existing durable method note with transferable logic, explains that implementation is deferred, and does not scaffold site, graph, database, or build scripts.",
+      "files": []
+    },
+    {
+      "id": 7,
+      "prompt": "我们的垂直知识库已经处理了两本书，后面还有三本书要录入。请不要把现在的框架写死，每本书进来时都要判断它是在强化、修正、扩展、冲突还是重分类现有框架。",
+      "expected_output": "Uses the framework-source double loop, treats the current framework/schema as provisional, classifies incoming material as reinforces/refines/extends/contradicts/reclassifies/parks, updates existing third-layer notes or indexes rather than creating parallel summaries, and records framework changes when necessary.",
+      "files": []
     }
   ]
 }

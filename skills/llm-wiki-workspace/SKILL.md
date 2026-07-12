@@ -1,6 +1,6 @@
 ---
 name: llm-wiki-workspace
-description: Build and maintain markdown-first LLM Wiki workspaces for research or project folders, including vertical/domain knowledge bases. Use when the user wants folder cleanup plus wiki, semantic compilation of a mature workspace without aggressive moves, raw/wiki/scripts/outputs/tmp or shallow input-output structure, source ingestion and promotion, material indexes, filename type tags, Obsidian-style repos, or a folder that stays understandable to LLMs and humans. Also use for long-term application of field notes, dormant knowledge awakening, three-layer source/note/framework organization, vertical knowledge base initial or supplemental builds, domain judgment systems, application playbooks, or field-specific reasoning across books, reports, PDFs, transcripts, datasets, outputs, cases, and mixed folders.
+description: Build and maintain markdown-first LLM Wiki workspaces for research/project folders and vertical/domain knowledge bases. Use for folder cleanup plus wiki, semantic compilation without aggressive moves, raw/wiki/scripts/outputs/tmp or shallow input-output structure, source ingestion/promotion, material indexes, filename type tags, Obsidian-style repos, and folders understandable to LLMs and humans. Also use for dormant knowledge awakening, three-layer source/note/framework organization, vertical knowledge base builds, domain judgment systems, playbooks, framework/source double-loop evolution, schema/object modeling, and field-specific reasoning across books, reports, PDFs, transcripts, datasets, outputs, cases, and mixed folders. When work also needs high-density source notes, architecture-style restructuring, knowledge crystallization, or cross-source framework writing, coordinate with content-master.
 ---
 
 # LLM Wiki Workspace
@@ -29,6 +29,21 @@ It is the durable knowledge and navigation layer inside the project.
 
 When the workspace is meant to become a vertical knowledge base, the target is higher than folder legibility.
 The goal is to compile sources, notes, cases, and frameworks into a domain-specific judgment system that can be called when a real situation appears.
+
+For vertical knowledge bases, treat early frameworks as provisional.
+The durable capability is not freezing the first taxonomy, but running a double loop:
+
+`provisional framework -> source ingestion -> candidate concepts/mechanisms/cases -> framework or schema revision -> next source`
+
+Use this double loop when books, reports, transcripts, or cases will keep arriving and the user expects the domain framework to mature over time.
+
+## Content synthesis boundary
+
+This skill owns the workspace harness: layout, roles, provenance, indexes, reading order, logs, and maintenance instructions.
+It should not treat a clean folder structure as a substitute for deep content work.
+
+When the user asks for source-level notes, book notes, image or architecture note processing, knowledge crystallization, third-layer main prose, topic synthesis, or architecture-style restructuring of concrete material, use or explicitly coordinate with `content-master`.
+In that collaboration, this skill decides where materials live, how provenance is preserved, what indexes and local instructions need updates, and what future agents should read first; `content-master` handles the content architecture: source-internal main problems, mechanism paths, judgments, application boundaries, and cross-source synthesis.
 
 ## Human-readable input-to-output architecture
 
@@ -157,6 +172,7 @@ Typical signs:
 - the user wants dormant knowledge to be awakened when a related event, case, decision, market move, or relationship problem appears
 - the user asks for initial construction or supplemental construction of a domain knowledge base
 - the value lies in reusable interpretation, material layering, diagnostic questions, and application entry points rather than one-source summaries
+- the user wants to compare knowledge websites, learn their method, or design a future vertical knowledge system without building the actual site yet
 
 In this mode, read [references/vertical-knowledge-base.md](references/vertical-knowledge-base.md).
 Treat the workspace as three material layers plus a clear application entry:
@@ -170,6 +186,7 @@ Support two submodes:
 
 - initial build: create the three-layer folder structure, third-layer main note or index, material index, README/AGENTS instructions, and log or navigation updates
 - supplemental build: read the existing third-layer main note and material index first, classify new material into the right layer, update source lineage, and avoid parallel summaries; first-layer sources may be indexed directly with callable conclusions instead of creating second-layer notes
+- method-learning: when the user is studying an external knowledge website, product, graph, or wiki method, extract the transferable logic into a method note and explicitly mark whether implementation is deferred; do not scaffold a site, graph, database, or scripts unless the user asks to start building
 
 This branch is best when the project's main deficit is not organization but reusable domain judgment.
 
@@ -359,10 +376,13 @@ Checklist:
 1. determine whether this is an initial build or a supplemental build
 2. inspect the folder and existing README, AGENTS, third-layer main note, material index, `wiki/index.md`, and log if present
 3. define the domain boundary and the real problems the knowledge base should help answer
-4. create or update the harness: three-layer folders, third-layer main note, material index, local instructions, and optional application/case/open-question pages only when justified
-5. promote source material into the right material layer while preserving provenance
-6. update `AGENTS.md`, README, indexes, and logs; when first-layer material is useful but not worth promotion, write a compact viewpoint index entry with keywords, conclusions, boundaries, and third-layer tags
-7. stop when a future query has a clear reading path and application routine
+4. identify the current framework/schema version: object types, relation types, source credibility rules, and application entries
+5. if the task requires source-level notes, knowledge crystallization, third-layer prose, or cross-source mechanism writing, coordinate with `content-master` for content architecture while this skill maintains placement, provenance, indexes, and reading order
+6. run the double loop for incoming material: decide whether each source reinforces, refines, contradicts, extends, or stays outside the existing framework
+7. create or update the harness: three-layer folders, third-layer main note, material index, local instructions, and optional application/case/open-question pages only when justified
+8. promote source material into the right material layer while preserving provenance
+9. update `AGENTS.md`, README, indexes, and logs; when first-layer material is useful but not worth promotion, write a compact viewpoint index entry with keywords, conclusions, boundaries, and third-layer tags
+10. stop when a future query has a clear reading path, application routine, and a clear current stance on whether the framework/schema changed
 
 ## Working with scripts and data
 

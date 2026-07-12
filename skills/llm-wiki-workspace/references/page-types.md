@@ -60,3 +60,24 @@ Good fit:
 - a major Q&A result worth preserving
 
 If the workspace already has a master note, that note can function as the top synthesis page.
+
+## Vertical knowledge-base files
+
+For vertical knowledge bases, prefer human-readable three-layer files before creating a `domain/` control folder.
+
+Default fit:
+
+- `【第三层】<Domain>.md`: recomposed domain body and first reading target
+- `【索引】<Domain>资料索引.md`: material index and source lineage
+- `01-第一层-底层资料/`: raw or bottom-layer material
+- `02-第二层-类型整理/`: compressed or type-organized notes
+- `03-第三层-二次整理/`: optional folder for multiple third-layer notes
+
+Optional fit:
+
+- `【应用】<Domain>调用说明.md`
+- `【案例】<Domain>案例库.md`
+- `【问题】<Domain>开放问题.md`
+- `wiki/domain/` only when a large workspace truly needs separate machine-facing control pages
+
+Do not create source maps, concept maps, mechanism maps, trigger maps, or playbooks by default when one stronger main note plus a material index would be clearer.

@@ -19,6 +19,65 @@ The knowledge base also needs an **application entry**: README/AGENTS instructio
 
 The key shift is from "what does this source say?" to "what future problem should this knowledge help interpret?"
 
+## Framework-source double loop
+
+Vertical knowledge bases mature through a double loop, not through a one-time taxonomy.
+Use this pattern when the user is still ingesting books, reports, transcripts, cases, or external method references and expects the domain framework to evolve.
+
+The loop is:
+
+```text
+provisional framework
+  -> incoming source
+  -> candidate concepts, mechanisms, cases, scenarios, relations
+  -> integration decision
+  -> framework or schema adjustment
+  -> next source
+```
+
+For each new source, make one of six integration decisions:
+
+| Decision | Meaning | Write-back target |
+| --- | --- | --- |
+| Reinforces | The source supports an existing concept, mechanism, or routine | strengthen the existing third-layer section and source lineage |
+| Refines | The source sharpens a boundary, variable, failure mode, or application condition | update the existing concept/routine instead of adding a parallel page |
+| Extends | The source introduces a genuinely new concept, mechanism, scenario, case, or relation type | add the smallest necessary node or section, then link it back |
+| Contradicts | The source conflicts with the current framework or another source | record the tension, evidence shape, and current judgment |
+| Reclassifies | The source shows that the existing framework layer, object type, or relation type is wrong | update the framework/schema and explain the change briefly |
+| Parks | The source is interesting but not yet reliable, central, or actionable | keep a compact viewpoint index entry or open question |
+
+Do not treat the current framework as permanent.
+Name the current framework/schema implicitly in the durable notes through clear headings, object types, relation types, and source rules.
+If a new source changes the framework, update the existing third-layer page rather than creating a disconnected "new version" summary.
+
+Use lightweight schema language:
+
+- **Object types**: what kinds of things the knowledge base tracks, such as concept, mechanism, scenario, source, case, actor, event, tool, metric, or routine.
+- **Relation types**: what connections are allowed, such as supports, contradicts, causes, precedes, applies_to, risks, source_of, variant_of, and boundary_of.
+- **Instances**: concrete entries of those types, such as `解释权`, `功劳归因`, `功劳被抢`, or a specific source book.
+
+For personal/domain knowledge bases, schema is a thinking aid before it is a database.
+Do not force every useful note into frontmatter or JSON unless downstream tooling truly needs it.
+
+## Method-learning mode
+
+Use method-learning mode when the user is studying an external knowledge website, industry map, graph product, or wiki method and wants to learn the approach before building anything.
+
+The output should be a durable method note or an update to an existing method note, not an automatic site scaffold.
+
+The method note should preserve:
+
+1. what the external artifact is trying to do
+2. what its domain skeleton is
+3. what object types and relation types it appears to use
+4. how it likely gathers, compiles, or updates data
+5. what can transfer to the user's domain
+6. what should not be copied
+7. whether implementation is deferred, experimental, or ready to start
+
+If the user explicitly says they are not building the site yet, state that boundary in the note.
+Do not create `site/`, graph data, schemas, build scripts, or new content trees from a method-learning request unless the user asks to begin implementation.
+
 ## When to choose this branch
 
 Choose vertical knowledge base mode when the user asks to:
@@ -127,6 +186,12 @@ Do not leave a processed source as only filename plus keywords. Keywords help re
 
 Do not add a confident viewpoint entry for a source that has not actually been read, extracted, OCRed, or otherwise understood. In that case, either keep a minimal provenance listing or report the processing status outside the durable index.
 
+Use the source's role to choose the compression lens:
+
+- **Method or framework source**: extract the reusable model, variables, mechanism chain, evidence shape, and failure boundary. The entry should help future agents know how to reason with the method, not merely where it came from.
+- **Single signal, concept, or tool source**: extract what the signal claims to measure, whether the evidence supports the claim, what hidden driver may explain the effect, and when the signal should be redefined, filtered, or ignored.
+- **Application, cross-asset, case, or output source**: extract what changes when the same method enters a new asset, scenario, market regime, workflow, or lived case. The entry should preserve the transfer condition and the reason the result may not generalize.
+
 ### README
 
 The README is the human-facing entrance.
@@ -199,16 +264,18 @@ Workflow:
    Start with README, AGENTS.md, the third-layer main note, and the material index.
 2. Classify the incoming material.
    Decide whether it is first-layer source material, second-layer compressed material, a third-layer framework update, a case, a contradiction, or an open question.
-3. Preserve source lineage.
+3. Run the framework-source double loop.
+   Decide whether the new material reinforces, refines, extends, contradicts, reclassifies, or should be parked.
+4. Preserve source lineage.
    Update the material index when provenance matters. For many reports, chapters, transcripts, cases, or outputs, viewpoint-index treatment is enough.
-4. Strengthen existing pages.
+5. Strengthen existing pages.
    Merge durable knowledge into the third-layer main note or a relevant existing third-layer page instead of creating a parallel summary.
-5. Resolve conflicts explicitly.
+6. Resolve conflicts explicitly.
    If the new material disagrees with existing claims, mark the tension, evidence, and current judgment.
-6. Update navigation.
+7. Update navigation.
    Refresh README, AGENTS.md, material index, cross-links, and log if present.
-7. Stop when the new material has a clear role.
-   It should either update a layer, a concept, a mechanism, a case, source lineage, or an open question.
+8. Stop when the new material has a clear role.
+   It should either update a layer, a concept, a mechanism, a case, source lineage, framework/schema boundary, or an open question.
 
 ## Query behavior
 
