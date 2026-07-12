@@ -40,6 +40,7 @@ skills/
   pdf-to-markdown-pipeline/
     SKILL.md
     references/pdf-to-markdown-method.md
+    scripts/
   skill-creator/
     SKILL.md
     references/

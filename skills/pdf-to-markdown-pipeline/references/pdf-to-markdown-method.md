@@ -195,3 +195,22 @@ Keep the light pipeline when the document is text-heavy, the audit is clean, and
 the requested result is a readable, source-grounded Markdown document. The goal
 is not maximal processing; it is the smallest trustworthy path to the requested
 quality bar.
+
+## 11. Bundled script map
+
+The reusable implementation is bundled under `scripts/`. The scripts are
+organized by responsibility rather than by a single giant command:
+
+| Responsibility | Scripts | Role |
+| --- | --- | --- |
+| Entry and extraction | `run_rule_structure_pipeline.py`, `pdf_toolkit.py` | Orchestrate the gate; inspect, split, and extract page-aware text |
+| Structure | `build_rule_structure.py` | Build structured JSON and Markdown |
+| Evidence and repair | `document_evidence.py`, `apply_structure_backfill.py` | Build provenance/review objects and rebuild corrected outputs |
+| Audit | `audit_markdown_formula.py` | Detect OCR, formula, table, layout, and delivery-state problems |
+| MinerU | `run_mineru_local.py`, `mineru_adapter.py`, `evaluate_mineru_output.py` | Run or evaluate optional layout-aware extraction and convert candidates |
+| Visual review | `build_agent_vision_packets.py`, `formula_multimodal.py` | Prepare page review packets and optional model-assisted formula review |
+| Downstream comparison | `build_parameter_catalog.py`, `build_clause_diff.py`, `build_diff_workbook.py` | Derive parameter catalogs, version diffs, and review workbooks after conversion |
+
+The conversion gate does not require the downstream comparison group. The
+scripts remain bundled because the source workflow uses the same structured
+objects for later parameter tracking and version comparison.

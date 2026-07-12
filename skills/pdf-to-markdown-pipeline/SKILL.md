@@ -76,6 +76,30 @@ no structure, provenance, or quality decision is required.
 - An audit step that can fail a formal-delivery run.
 - A patch/backfill mechanism that updates the structured source and rebuilds
   Markdown, evidence, and downstream artifacts.
+- The bundled `scripts/` toolkit for deterministic extraction, structuring,
+  Evidence, formula/table review, auditing, and backfill.
+
+## Bundled Script Surface
+
+The Skill includes the executable Python layer from the source PDF-processing
+toolkit. Use the narrowest entry point that matches the task:
+
+- Main pipeline: `scripts/run_rule_structure_pipeline.py`
+- Inspect, split, and native extraction: `scripts/pdf_toolkit.py`
+- Structure building: `scripts/build_rule_structure.py`
+- Evidence and repair: `scripts/document_evidence.py`,
+  `scripts/apply_structure_backfill.py`
+- Quality gate: `scripts/audit_markdown_formula.py`
+- MinerU path: `scripts/run_mineru_local.py`, `scripts/mineru_adapter.py`,
+  `scripts/evaluate_mineru_output.py`
+- Visual review support: `scripts/build_agent_vision_packets.py`,
+  `scripts/formula_multimodal.py`
+- Optional downstream comparison: `scripts/build_parameter_catalog.py`,
+  `scripts/build_clause_diff.py`, and `scripts/build_diff_workbook.py`
+
+The last group is downstream of PDF conversion and is not required for a basic
+Markdown delivery. See `scripts/README.md` for the execution order and
+dependency notes.
 
 ## Necessary Facts and Boundaries
 
@@ -124,6 +148,9 @@ Write page-aware raw text and a page-quality report to a temporary or staging
 area. Keep page boundaries and extraction metadata. Never treat the raw text as
 the final Markdown; it is the input for structure detection and risk scoring.
 
+Use `scripts/pdf_toolkit.py` for inspection and first-pass extraction, or use
+`scripts/run_rule_structure_pipeline.py` as the orchestration entry point.
+
 ### 4. Build the structural layer
 
 Convert the intermediate into a document model such as:
@@ -133,6 +160,7 @@ Convert the intermediate into a document model such as:
 Retain titles, numbering, page ranges, content source, quality flags, and
 formula/table sensitivity. Generate the first Markdown and, when downstream
 queries or comparisons need stable objects, a matching JSON representation.
+The bundled implementation for this step is `scripts/build_rule_structure.py`.
 
 ### 5. Build Evidence and a review queue
 
@@ -144,6 +172,7 @@ table_candidate, audit_issue, review_queue, backfill_patch`
 
 Each candidate should carry the source page or block, extraction source, a
 short preview or hash, confidence/status, and the next review action.
+Use `scripts/document_evidence.py` to build the Evidence JSON and review queue.
 
 ### 6. Audit before downstream use
 
@@ -152,6 +181,9 @@ artifacts, flattened formulas, unclosed LaTeX delimiters, collapsed tables or
 flowcharts, overlong blocks, and inconsistent structure. Then run a strict
 delivery audit that also checks unresolved review flags and stale raw content in
 the structured representation.
+
+Run `scripts/audit_markdown_formula.py` for the normal audit and its strict
+delivery mode.
 
 Use two modes explicitly:
 
@@ -166,6 +198,9 @@ verified cache first; otherwise use the appropriate automated, multimodal, or
 human path. Write a patch against the structured object, including the corrected
 content source and review status. Rebuild Markdown and JSON, regenerate
 Evidence, and rerun the audit.
+
+Use `scripts/apply_structure_backfill.py` for structured corrections; do not
+edit only the rendered Markdown.
 
 The loop is:
 
@@ -202,6 +237,8 @@ plain text dump as a high-confidence structured conversion.
 
 - Open `references/pdf-to-markdown-method.md` for the generalized method,
   object model, quality gates, and engine-escalation matrix.
+- Open `scripts/README.md` for the bundled Python entry points, dependency
+  boundaries, and command routing.
 - Use the local project's own parser, renderer, builder, audit, and backfill
   scripts when they exist; this skill defines their order and boundaries rather
   than replacing project-specific implementations.
