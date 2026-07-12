@@ -10,6 +10,7 @@ $sources = @(
   @{ Name = "creator-content-knowledge-pipeline"; Source = Join-Path $HOME ".codex\skills\creator-content-knowledge-pipeline" },
   @{ Name = "llm-wiki-workspace"; Source = Join-Path $HOME ".codex\skills\llm-wiki-workspace" },
   @{ Name = "primitive-thinking"; Source = Join-Path $HOME ".codex\skills\primitive-thinking" },
+  @{ Name = "pdf-to-markdown-pipeline"; Source = Join-Path $HOME ".codex\skills\pdf-to-markdown-pipeline" },
   @{ Name = "research-synthesis"; Source = Join-Path $HOME ".codex\skills\research-synthesis" },
   @{ Name = "web-access"; Source = Join-Path $HOME ".codex\skills\web-access" },
   @{ Name = "skill-creator"; Source = Join-Path $HOME ".agents\skills\skill-creator" }

@@ -28,6 +28,11 @@
       "source": "~/.codex/skills/primitive-thinking"
     },
     {
+      "name": "pdf-to-markdown-pipeline",
+      "path": "skills/pdf-to-markdown-pipeline",
+      "source": "~/.codex/skills/pdf-to-markdown-pipeline"
+    },
+    {
       "name": "research-synthesis",
       "path": "skills/research-synthesis",
       "source": "~/.codex/skills/research-synthesis"
