@@ -4,6 +4,7 @@ Personal Codex skills maintained by xuelixunhua.
 
 ## Recent Updates
 
+- 2026-07-26: added `chief-of-staff-collaboration`, a chief-of-staff-style collaboration skill for delegated judgment, multi-stage execution, authorization boundaries, verified closure, and sensitive organizational interaction. It includes an opt-in installer for the matching global `AGENTS.md` route.
 - 2026-07-12: added `pdf-to-markdown-pipeline`, an evidence-first PDF-to-Markdown workflow with extraction, structure building, strict audits, review queues, and source-grounded backfills.
 - 2026-06-22: refreshed `llm-wiki-workspace` with the vertical knowledge-base branch, including three-layer material handling and first-layer viewpoint index entries for sources that need callable conclusions without becoming standalone notes.
 - 2026-06-13: added `creator-content-knowledge-pipeline`, a creator/content-to-knowledge-base pipeline skill for turning Bilibili UPs, podcasts, courses, or video series into vertical knowledge-base products and reusable production engines.
@@ -15,6 +16,7 @@ Personal Codex skills maintained by xuelixunhua.
 | Skill | Source on maintainer machine | Notes |
 | --- | --- | --- |
 | `bggg-skill-taotie` | `~/.codex/skills/bggg-skill-taotie` | Skill evolution and skill-merging workflow. |
+| `chief-of-staff-collaboration` | `~/.codex/skills/chief-of-staff-collaboration` | Delegated judgment and continued execution with explicit intent, reality, authorization, closure, and relationship boundaries. |
 | `content-master` | `~/.codex/skills/content-master` | Content thinking, note processing, WeChat/article writing, and problem-first thinking analysis. |
 | `creator-content-knowledge-pipeline` | `~/.codex/skills/creator-content-knowledge-pipeline` | Creator/video-to-knowledge-base pipeline for Layer 3 vertical knowledge products and Layer 4 production engines. |
 | `llm-wiki-workspace` | `~/.codex/skills/llm-wiki-workspace` | Markdown-first LLM wiki plus vertical/domain knowledge-base harness. |
@@ -28,6 +30,10 @@ Personal Codex skills maintained by xuelixunhua.
 
 ```text
 skills/
+  chief-of-staff-collaboration/
+    SKILL.md
+    references/
+    scripts/install-global-agents-route.ps1
   content-master/
     SKILL.md
     thinking-analysis.md
@@ -74,6 +80,22 @@ Overwrite existing local copies:
 ```
 
 Restart Codex after installing or updating skills.
+
+### Additional setup for `chief-of-staff-collaboration`
+
+This skill uses its `description` for native implicit invocation and adds a global `AGENTS.md` route to make the intended classification persistent across tasks. After installing the skill, preview the global-route change:
+
+```powershell
+.\skills\chief-of-staff-collaboration\scripts\install-global-agents-route.ps1 -WhatIf
+```
+
+Then install it:
+
+```powershell
+.\skills\chief-of-staff-collaboration\scripts\install-global-agents-route.ps1
+```
+
+The helper targets `$HOME\.codex\AGENTS.md`, preserves existing guidance, creates a timestamped backup before writing, and uses managed markers so repeated runs update one block instead of appending duplicates. For manual installation, read `skills/chief-of-staff-collaboration/references/global-agents-routing.md`.
 
 ## Maintainer Sync
 

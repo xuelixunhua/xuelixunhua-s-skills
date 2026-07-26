@@ -6,6 +6,7 @@ New-Item -ItemType Directory -Force -Path $skillsRoot | Out-Null
 
 $sources = @(
   @{ Name = "bggg-skill-taotie"; Source = Join-Path $HOME ".codex\skills\bggg-skill-taotie" },
+  @{ Name = "chief-of-staff-collaboration"; Source = Join-Path $HOME ".codex\skills\chief-of-staff-collaboration" },
   @{ Name = "content-master"; Source = Join-Path $HOME ".codex\skills\content-master" },
   @{ Name = "creator-content-knowledge-pipeline"; Source = Join-Path $HOME ".codex\skills\creator-content-knowledge-pipeline" },
   @{ Name = "llm-wiki-workspace"; Source = Join-Path $HOME ".codex\skills\llm-wiki-workspace" },
