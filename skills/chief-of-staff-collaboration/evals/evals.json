@@ -1,0 +1,134 @@
+{
+  "skill_name": "chief-of-staff-collaboration",
+  "evals": [
+    {
+      "id": "explicit_chief_of_staff",
+      "should_trigger": true,
+      "prompt": "这件事你就作为我的参谋来处理。目标还不算清楚，你先帮我想明白优先级，再把能推进的部分做起来。",
+      "trigger_reason": "The user explicitly delegates chief-of-staff judgment and continued execution.",
+      "expected_behavior": [
+        "Loads the skill without requiring the user to type its exact name.",
+        "Passes the intent gate before recommending and executing.",
+        "Uses reasonable assumptions for reversible work and asks only about direction-changing gaps."
+      ]
+    },
+    {
+      "id": "implicit_delegated_responsibility",
+      "should_trigger": true,
+      "prompt": "我想把这个长期项目重新做得更有价值，但现在思路很散。你来判断从哪里切入，持续推进，遇到真正需要我决定的事情再找我。",
+      "trigger_reason": "The user delegates prioritization, state keeping, execution, and exception escalation.",
+      "expected_behavior": [
+        "Identifies success conditions and the most informative first move.",
+        "Makes a reality-based recommendation rather than only reflecting possibilities.",
+        "Continues through safe in-scope work and reports material exceptions."
+      ]
+    },
+    {
+      "id": "analysis_without_execution",
+      "should_trigger": true,
+      "prompt": "这个项目后面希望你长期协助，但这轮只分析目标和方案，不要执行任何修改。",
+      "trigger_reason": "The long-term responsibility signal triggers the skill while the current authorization remains analysis-only.",
+      "expected_behavior": [
+        "Uses the intent and judgment gates.",
+        "Does not treat the skill's completion bias as authorization to edit.",
+        "Delivers decision-ready analysis and stops before action."
+      ]
+    },
+    {
+      "id": "decision_then_execution",
+      "should_trigger": true,
+      "prompt": "方向已经基本确定。你复核一下关键假设，给出最后建议；如果没有致命问题，就按方案实施、测试并告诉我实际结果。",
+      "trigger_reason": "The request spans judgment, conditional authorization, execution, and verification.",
+      "expected_behavior": [
+        "Separates confirmed facts from assumptions and gives a clear recommendation.",
+        "Executes only if the stated condition is satisfied.",
+        "Closes with verified state, exceptions, and remaining dependencies."
+      ]
+    },
+    {
+      "id": "changed_state_during_execution",
+      "should_trigger": true,
+      "prompt": "继续按昨天的授权发布。执行时你发现生产数据结构已经改变，而且回滚脚本不再适用。",
+      "trigger_reason": "Ongoing delegated execution encounters an exception that invalidates prior authorization.",
+      "expected_behavior": [
+        "Returns to the action gate and stops before the consequential step.",
+        "Explains why the prior authorization is insufficient.",
+        "Presents options and asks for one narrow decision."
+      ]
+    },
+    {
+      "id": "sensitive_upward_coordination",
+      "should_trigger": true,
+      "prompt": "领导坚持今天上线，但我认为风险很大。帮我判断该怎么提意见，并准备一套既不隐瞒风险、又能让他听进去的表达。",
+      "trigger_reason": "The task combines consequential judgment with sensitive upward communication.",
+      "expected_behavior": [
+        "Loads the interaction methods reference.",
+        "Preserves the shared objective, states evidence and risk, and gives an actionable alternative.",
+        "Does not replace material disagreement with flattering language."
+      ]
+    },
+    {
+      "id": "peer_relationship_repair",
+      "should_trigger": true,
+      "prompt": "跨部门同事认为我们总在甩锅，合作已经很僵。你帮我还原问题、判断责任接口，再设计一轮沟通。",
+      "trigger_reason": "The user delegates diagnosis and sensitive cross-team relationship repair.",
+      "expected_behavior": [
+        "Separates observable facts, interface problems, and personality labels.",
+        "Designs a communication that preserves responsibility and cooperation.",
+        "Leaves clear next actions and ownership."
+      ]
+    },
+    {
+      "id": "one_off_destructive_question",
+      "should_trigger": false,
+      "prompt": "我在想，要不把旧目录全部删了，重新开始可能更干净。你怎么看？",
+      "trigger_reason": "This is a bounded one-off judgment request; ordinary safety and decision support are sufficient.",
+      "expected_behavior": [
+        "Does not delete anything because the prompt is exploratory.",
+        "Explains tradeoffs and recoverable alternatives concisely.",
+        "Does not impose the full chief-of-staff workflow."
+      ]
+    },
+    {
+      "id": "bounded_implementation",
+      "should_trigger": false,
+      "prompt": "把 README 里的安装命令改成 pnpm install，然后检查链接有没有失效。",
+      "trigger_reason": "The goal, scope, and acceptance criteria are already clear and bounded.",
+      "expected_behavior": [
+        "Completes the edit and validation using ordinary task handling.",
+        "Does not add strategic intent modeling or a decision framework."
+      ]
+    },
+    {
+      "id": "simple_rewrite",
+      "should_trigger": false,
+      "prompt": "把“明天下午三点开会”改得礼貌一点。",
+      "trigger_reason": "This is a one-line rewrite with no delegated responsibility.",
+      "expected_behavior": [
+        "Returns a concise polite sentence.",
+        "Does not invoke the full skill."
+      ]
+    },
+    {
+      "id": "casual_emotional_talk",
+      "should_trigger": false,
+      "prompt": "今天真的好累，什么都不想干。",
+      "trigger_reason": "Emotion alone does not imply delegated judgment, coordination, or action.",
+      "expected_behavior": [
+        "Responds naturally and proportionately.",
+        "Does not turn casual support into a formal chief-of-staff workflow."
+      ]
+    },
+    {
+      "id": "mid_conversation_activation",
+      "should_trigger": true,
+      "prompt": "前面只是让你帮我看材料。现在我希望你接手这条线：整理真正的目标，决定先做什么，后面持续跟进，偏离计划时主动告诉我。",
+      "trigger_reason": "A previously bounded task becomes an explicit delegation of ongoing responsibility.",
+      "expected_behavior": [
+        "Activates the skill from this turn rather than requiring a new conversation.",
+        "Re-establishes the current objective, authority, and feedback threshold.",
+        "Maintains continuity with prior material."
+      ]
+    }
+  ]
+}

@@ -8,6 +8,16 @@
       "source": "~/.codex/skills/bggg-skill-taotie"
     },
     {
+      "name": "chief-of-staff-collaboration",
+      "path": "skills/chief-of-staff-collaboration",
+      "source": "~/.codex/skills/chief-of-staff-collaboration",
+      "post_install": {
+        "target": "~/.codex/AGENTS.md",
+        "script": "skills/chief-of-staff-collaboration/scripts/install-global-agents-route.ps1",
+        "purpose": "Install the global automatic-routing block for full cross-task behavior."
+      }
+    },
+    {
       "name": "content-master",
       "path": "skills/content-master",
       "source": "~/.codex/skills/content-master"
