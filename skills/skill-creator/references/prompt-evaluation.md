@@ -4,14 +4,16 @@
 
 Prompt evaluation should usually be lighter than skill evaluation. The goal is to see whether the prompt preserves the method, not to build a heavy benchmark by default.
 
-A good default loop is:
+A lightweight loop for behavioral changes is:
 
 1. Draft the prompt
 2. Write 2-5 realistic test inputs
 3. Run the prompt on those inputs
 4. Review the outputs against the success criteria
 5. Revise the prompt
-6. Repeat until the prompt is stable
+6. Repeat only while a failure or meaningful uncertainty remains
+
+For a local wording or formatting fix, inspect the affected contract and a relevant example first; a full comparison is not mandatory. Use the escalation criteria below when choosing evaluation depth.
 
 ## What To Test
 
@@ -43,6 +45,8 @@ When repairing an existing prompt, compare:
 - the revised prompt output
 - where the revised version improved
 - what it may have accidentally worsened
+
+Run old/new or with/without comparisons in separate fresh contexts, with the same model, settings, task inputs, and tool access. A context that already read the target prompt is not an unassisted baseline. Keep grading criteria consistent and outside the raw task input. Record which comparisons actually ran; an editorial review alone supports a design judgment, not a measured behavioral improvement.
 
 Do not treat "different" as automatically "better". Look for clearer reasoning, better adherence to the intended audience, and less noise.
 

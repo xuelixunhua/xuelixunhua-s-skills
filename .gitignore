@@ -7,4 +7,13 @@ Thumbs.db
 *.tmp
 .env
 .env.*
+config.env
+.learnings/
+work/
+tmp/
+**/evals/results/
+**/evals/completed-work-regressions-*.json
+auth.json
+credentials.json
+skills/web-access/references/site-patterns/tingwu.aliyun.com.md
 

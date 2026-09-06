@@ -1,0 +1,4 @@
+interface:
+  display_name: "Skill Creator · Personal"
+  short_description: "Design, build, simplify, and validate reusable skills"
+  default_prompt: "Use $skill-creator to turn this recurring workflow into the smallest reliable skill."

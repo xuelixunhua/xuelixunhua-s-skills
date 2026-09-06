@@ -1,266 +1,96 @@
 ---
 name: skill-creator
-description: Create, repair, and optimize reusable prompts, skills, and adjacent harness instructions. Use when users want to turn a workflow or methodology into a prompt, decide whether something should become a skill, improve an existing prompt or SKILL.md, package reusable agent behavior, or strengthen skill triggering and quality instead of solving a one-off task.
+description: Create, update, simplify, and validate reusable skills and prompts. Use to turn a recurring method into a skill, revise SKILL.md, preserve strategy philosophy while compressing instructions, improve triggers or bundled tools, or choose between a prompt, skill, and scoped project rules. One-off writing and ordinary task execution do not need this skill.
 ---
 
-# Prompt / Skill Creator
+# Skill Creator
 
-This skill helps Codex package reusable agent behavior. Treat prompt writing and skill writing as harness design, not as document filling. Default to the smallest artifact that will reliably solve the recurring problem.
+This personal version owns design, construction, and validation. Preserve its established name, path, and Personal UI identity. The bundled system version is an optional read-only conventions reference, never an automatic handoff or a copy to edit.
 
-## Mission
+## 1. Choose What To Preserve And Package
 
-Use this skill when the user wants to:
+Start from the user's intent and existing artifacts. Identify the recurring method, who it serves, its success criteria, and the principles or constraints that must survive. Reuse conversation context before asking for missing information.
 
-- create a new prompt, skill, or harness rule
-- repair an existing prompt or skill
-- decide whether something should be a prompt, skill, or global rule
-- turn a personal method into a reusable artifact
-- improve trigger quality, structure, or reuse
+Choose the smallest container that preserves the method:
 
-If the user only needs a one-off answer, solve the task directly instead of creating a reusable artifact.
+| Container | Use |
+| --- | --- |
+| Direct answer | One-off work without a reusable capability to preserve |
+| Prompt | A portable method or framing that can be invoked as text |
+| Skill | A recurring capability with a trigger boundary, strategy philosophy, or bundled resources |
+| Scoped instructions | Stable rules for their actual scope: user-wide, repository, or subdirectory; place `AGENTS.md` or the host equivalent accordingly |
 
-## Start With Packaging, Not Writing
+Prefer a coherent extension of an existing skill over a new thin or overlapping one. Keep distinct capabilities separate when combining them would blur their triggers or decisions. A reusable file, script, or template can also belong in an existing capability without becoming another skill.
 
-Before drafting anything, identify the reusable unit:
+## 2. Strategy Philosophy Comes First
 
-1. What exactly should become reusable: a wording pattern, a workflow, a capability, or a rule?
-2. How often will this recur?
-3. Does it need automatic triggering?
-4. Does it need scripts, references, assets, or evaluation infrastructure?
-5. Is it global and stable enough to belong in `AGENTS.md` or `CLAUDE.md` instead?
+`Skill = classification + triggering + philosophy`
 
-Use the smallest container that preserves the method:
+`High-quality skill = strategy philosophy + minimum complete toolkit + necessary facts`
 
-- Direct answer: for one-off work with no reuse value
-- Prompt: for a reusable way of asking or framing work that can travel as text
-- Skill: for a reusable capability that needs triggering, resources, or a durable agent philosophy
-- `AGENTS.md` or `CLAUDE.md`: for global, stable, cross-task rules
+Strategy philosophy determines the skill's direction: what it optimizes for, how it makes tradeoffs, and how it adapts when the obvious path fails. It governs the choice of workflow, tools, and evaluation criteria. Preserve this core when compressing a skill; remove repeated wording without erasing the user's values or domain judgment.
 
-Do not default to creating a new skill. First ask whether the work should be absorbed into an existing skill or stay as a prompt. See `references/artifact-packaging.md` when you need a sharper boundary check.
+Write a compact, task-specific philosophy before detailed procedures. It should guide:
 
-## Core Design Philosophy
+1. **Direction and success:** whose problem is being solved, what a good result achieves, and which qualities matter most.
+2. **Priorities and boundaries:** what must hold, what can vary, and how to choose when goals conflict.
+3. **Starting point and route:** which evidence or action is most informative, and when another route is appropriate.
+4. **Feedback and correction:** how intermediate results change the approach or invalidate an assumption.
+5. **Completion:** what evidence is sufficient to finish and what unresolved condition requires further work.
 
-### Prompt = Packaged Methodology
+These are design questions, not mandatory headings in every generated skill. State the domain's actual decisions instead of copying generic slogans. A fixed workflow still needs its purpose and governing judgment; an agent framework needs more guidance on choosing among approaches. Most skills combine both.
 
-A good prompt packages a method so another person can reuse it quickly. Your job is not to make it sound elaborate. Your job is to make the method easy to invoke and hard to misunderstand.
+Match constraint strength to the work: goals and heuristics for variable judgment, preferred patterns for stable but adaptable work, and explicit sequences or scripts for fragile, order-dependent operations. Explain the reason for strict rules. Stronger models still need private facts, user preferences, tool coordination, and real boundaries; do not delete these merely because no benchmark proves their value.
 
-When creating or repairing a prompt, make sure it does the following:
+## 3. Build Or Revise
 
-1. Define both sides of the conversation: who the model is and who it serves
-2. Use the fewest words that still preserve meaning
-3. Use precise concepts and explicit definitions where ambiguity would hurt
-4. Provide enough context: situation, current state, goal, and room to maneuver
-5. Break complex work into smaller sub-problems when focus matters
+1. **Inspect before changing.** For an existing artifact, preserve its identity, philosophy, user-locked content, and useful resources. Diagnose the failure or repetition; avoid rebuilding from a blank template.
+2. **Define the capability boundary.** Keep the name stable. Front-load the main job and realistic trigger language in `description`, then clarify near misses. Broaden adjacent phrasing without making the skill universal. Distinguish same-name copies by path and UI identity.
+3. **Express the method once.** Let the philosophy guide one main workflow with only necessary branches. For prompts, preserve role and audience, precise concepts, relevant context, and the output contract; decompose only where it improves focus.
+4. **Put resources in their proper place.** Keep reference selection, tool routing, and orchestration in `SKILL.md`. References carry facts, examples, schemas, and deep method detail. Fix unclear routing before adding more reference material.
+5. **Implement the smallest complete artifact.** Use the helpers below when creating files; edit existing artifacts in place. Add scripts for repeated deterministic work, assets for output templates, and facts the model would otherwise miss or mis-prioritize.
+6. **Validate and explain the change.** Use the appropriate checks below. Report what was preserved, what changed, the evidence obtained, and any remaining uncertainty. Explain structure only when it helps the user understand or maintain the result.
 
-Prompt writing is convergence work. Models are naturally expansive, so the prompt should concentrate attention on the right problem, the right constraints, and the right output.
+Compress by merging duplicate rules, removing generic reminders, and loading detail on demand. Do not trade away useful definitions, philosophy, or exceptions to meet a line quota. Revisit inherited constraints after meaningful model upgrades and retain the smallest intervention that addresses an observed failure.
 
-### Skill = Classification + Triggering + Philosophy
+## 4. Validate In Proportion To The Change
 
-A good skill is not just a long instruction file. It is a reusable capability with a boundary and a trigger surface.
+| Change | Sufficient starting check | Escalate when |
+| --- | --- | --- |
+| Wording, paths, or metadata | Inspect the diff; check structure and affected references/configuration | Meaning, routing, or behavior also changes |
+| Scripts or file operations | Run representative inputs and relevant failure/regression cases in a temporary directory | A dependency or integration remains uncertain |
+| Philosophy, triggers, or workflow | Review preservation of intent; examine core, messy, and near-miss cases against explicit success criteria | Actual trigger behavior or an improvement claim needs independent evidence |
 
-- Classification: define the capability boundary at the right granularity
-- Triggering: make sure Codex can recognize when the skill should activate
-- Philosophy: teach the agent how to think, not just what buttons to press
+Use `scripts/quick_validate.py` for structural checks. Add `--ready` before delivery to check scaffold markers and literal bundled file references in the entry file. This is not a full resource audit or proof of good model behavior; inspect examples, computed paths, and changed resource content separately. Do not run destructive scripts merely to satisfy a check.
 
-Use this formula when designing or revising a skill:
+For behavioral claims, compare representative tasks in fresh, separate contexts using the same model, settings, inputs, and tool access. A conversation that has already read the skill is not a no-skill baseline. Use with/without-skill or old/new comparisons as appropriate; a subtraction test can isolate a disputed rule. Keep grading criteria consistent without leaking expected answers or suspected fixes into the task input. Fresh runs or subagents are optional when available and proportionate, not a prerequisite for every edit.
 
-`high-quality skill = strategy philosophy + minimum complete toolkit + necessary facts`
+Distinguish **structural checks**, **script checks**, **scenario review**, and **independent behavioral evaluation** in the evidence. If a fresh evaluation is unavailable or disproportionate, finish the authorized work and describe improvement as a design judgment until tested. Do not invent a baseline or claim success from a preferred-looking output.
 
-Two broad skill shapes are common:
+Keep durable eval cases outside runtime instructions. Use verifiable checks where possible, inspect quality where judgment matters, and include regression cases. Stop once acceptance and relevant checks are satisfied; expand testing only for new failures or unresolved concerns.
 
-- Fixed workflow: repeatable jobs with a stable sequence
-- Agent framework: broader capability prompts that guide strategy across many situations
+## 5. Loading And Tooling
 
-Most good skills are hybrids, but one of these should dominate.
+The host first exposes skill metadata, possibly shortening descriptions. The selected `SKILL.md` carries direction, decisions, and resource routing. Load references, scripts, assets, and evals only as needed. Link required resources directly; avoid reference chains. Around 500 lines is a review signal, not a target. Do not create empty resource folders or extra README, changelog, or installation files without a concrete need.
 
-### Strategy Philosophy Comes First
+| Helper | Purpose |
+| --- | --- |
+| `scripts/init_skill.py` | Create a lowercase hyphenated skill folder, core scaffold, UI metadata, and selected resource folders; replace placeholders before delivery |
+| `scripts/init_prompt.py` | Create `PROMPT.md` and `TEST_INPUTS.md` when a reusable prompt is requested on disk |
+| `scripts/generate_openai_yaml.py` | Create or update optional UI metadata in UTF-8, preserving unmodified configuration values |
+| `scripts/quick_validate.py` | Structural checks; optional `--ready` entry-file checks; neither mode evaluates model behavior |
 
-The most important part of a strong skill is the reasoning pattern. Write the target and the thought process before you write detailed steps.
+Run these helpers with a Python environment that has PyYAML. Resolve filesystem paths in the host environment. For new skills, choose name and destination, select only justified resources, run the scaffolder, fill the method, and validate. UI metadata is optional for hand-authored skills; the scaffolder supplies it for convenience.
 
-At minimum, the philosophy should help the agent:
+When changing the helpers, run `evals/test_tools.py` for focused file/configuration regressions. It uses temporary cases under the working directory's `work/` and does not call a model.
 
-1. Define the success criteria
-2. Choose the best starting point
-3. Treat intermediate results as evidence and correct course early
-4. Stop when the success criteria are met
+Read references selectively:
 
-Only add rigid step-by-step procedures when the work is fragile, order-dependent, or safety-critical. Otherwise, prefer goals, heuristics, and decision points. See `references/workflows.md` for patterns.
-
-### Minimum Complete Toolkit
-
-Bundle the smallest set of tools and resources that makes the capability reliable:
-
-- `scripts/` for repeated deterministic work
-- `references/` for detailed facts, schemas, or domain notes
-- `assets/` for templates and materials used in outputs
-
-Do not add resources just because the folders exist. Every bundled file should reduce repeated work or improve reliability.
-
-### Necessary Facts
-
-Add facts that the model is likely to forget, underuse, or mis-prioritize:
-
-- preferred starting points
-- domain terminology
-- hidden constraints
-- quality bars
-- safety boundaries
-
-Facts are there to awaken useful knowledge, not to dump everything you know.
-
-## Prompt Workflow
-
-When the user wants a prompt, repaired prompt, or prompt library item:
-
-1. Identify the job to be done, intended user, and failure modes
-2. Decide whether the result should be a one-shot prompt, a reusable prompt template, or a prompt family with variants
-3. Draft the prompt using the five prompt principles above
-4. Remove language that is decorative, redundant, or overly rigid
-5. Tighten the output contract only as much as the task actually needs
-6. Provide 2-5 realistic test inputs that pressure the weak edges
-
-If the user wants a durable prompt artifact on disk, scaffold it with `scripts/init_prompt.py`, then fill in `PROMPT.md` and `TEST_INPUTS.md` instead of starting from a blank file.
-
-When repairing a prompt, diagnose before rewriting. Common issues include:
-
-- vague role or service target
-- too much wording and too little signal
-- missing context or success criteria
-- undefined key concepts
-- over-constrained steps that block model judgment
-- format instructions that are either too loose or unnecessarily rigid
-
-If useful, present prompt work in this shape:
-
-1. what the prompt is trying to achieve
-2. what is weak in the current version
-3. revised prompt
-4. why the changes help
-5. test prompts for validation
-
-For a deeper prompt checklist, see `references/prompt-design.md`.
-
-For a lightweight review loop, see `references/prompt-evaluation.md`.
-
-## Skill Workflow
-
-When the user wants a new skill or an existing skill revised:
-
-1. Capture intent from the conversation before interviewing the user again
-2. Decide whether a new skill should exist at all
-3. Define the skill boundary and nearby cases it should absorb
-4. Decide whether it is mainly a fixed workflow, an agent framework, or a hybrid
-5. Write the strategy philosophy before the detailed workflow
-6. Add only the minimum complete toolkit and the necessary facts
-7. Write a trigger-aware `description` that says both what the skill does and when to use it
-8. Keep `SKILL.md` lean and push detailed material into `references/`
-9. Validate and iterate on realistic prompts
-
-When the user is editing an existing skill, inspect these separately:
-
-- `name`: keep stable unless there is a strong reason to rename
-- `description`: improve triggering, boundaries, and examples of when to use
-- `SKILL.md` body: improve philosophy, workflow, and resource routing
-- bundled resources: add only when repeated work proves they are needed
-
-Do not solve undertriggering by making the description vague or universal. Make it broad enough to catch real adjacent phrasings, but still defend the category boundary.
-
-## Description and Trigger Quality
-
-The frontmatter `description` is the primary trigger surface. It should include:
-
-- what capability the skill provides
-- the requests or contexts that should activate it
-- nearby phrasing that should still count
-- enough specificity to beat near-miss skills
-
-Prefer realistic request language over abstract labels. If needed, generate trigger evals and refine from evidence rather than instinct.
-
-## Editing Mode
-
-When the user gives you an existing prompt or skill, go into editing mode instead of greenfield mode.
-
-For prompts:
-
-- identify the preserved core
-- diagnose the weak spots
-- rewrite with less noise and better structure
-- explain the delta
-
-For skills:
-
-- preserve the durable identity
-- improve the classification boundary
-- improve triggering
-- upgrade the philosophy before adding procedural weight
-- only then revisit evals, scripts, and references
-
-Before editing a skill's reference files, run a harness audit:
-
-1. Identify the control plane: which file decides when and how the skill calls tools, references, and workflows.
-2. Identify the knowledge plane: which reference files only provide facts, examples, frameworks, or domain detail.
-3. Move routing, selection, and orchestration rules into the control plane; do not duplicate them inside reference material.
-4. Keep reference files focused on necessary facts and deep method detail, not caller logic.
-5. Check whether the proposed change strengthens triggering, strategy philosophy, or tool selection before adding content.
-
-When a skill feels weak, inspect the control plane first. Adding richer references rarely fixes a poor harness if the caller still does not know what to select, when to select it, or how to stop.
-
-## Evaluation and Iteration
-
-Use the lightest evaluation loop that matches the stakes:
-
-- Prompts: realistic example prompts, before/after comparison, and user review
-- Skills: realistic trigger prompts, artifact inspection, validation scripts, and if needed the heavier benchmark workflow
-
-Do not overfit to a few examples. Generalize from feedback and remove instructions that are not pulling their weight.
-
-When the environment supports it and the user wants rigor, you may still use the full skill evaluation loop:
-
-- generate realistic eval prompts
-- run with-skill and baseline comparisons
-- inspect outputs qualitatively
-- add quantitative checks only where the output is objectively verifiable
-- iterate until improvements are real
-
-## Creating New Skills
-
-When the packaging decision says "skill":
-
-1. decide the skill name and destination
-2. run `scripts/init_skill.py` to scaffold the folder
-3. replace the template with a philosophy-first `SKILL.md`
-4. remove any placeholder resources that are not needed
-5. run `scripts/quick_validate.py` before handing it off
-
-The scaffolder is there to save time, not to think for you. The template still needs a real boundary, trigger surface, and strategy philosophy.
-
-## Creating New Prompts
-
-When the packaging decision says "prompt":
-
-1. decide the prompt name and destination
-2. run `scripts/init_prompt.py` to scaffold the prompt folder
-3. replace the template with a concise, method-preserving prompt
-4. fill in `TEST_INPUTS.md` with realistic cases
-5. run a lightweight prompt eval loop before treating it as reusable
-
-Prompt scaffolding is for reuse, not decoration. Keep the stored artifact lean enough that someone else could understand and apply it quickly.
-
-## Using References
-
-Read the reference files selectively:
-
-- `references/artifact-packaging.md` for prompt vs skill vs global-rule decisions
-- `references/prompt-design.md` for prompt principles and prompt repair
-- `references/prompt-evaluation.md` for lightweight prompt validation
-- `references/workflows.md` for philosophy-first workflow patterns
-- `references/output-patterns.md` for useful response shapes when presenting prompt or skill work
-
-## Working Style
-
-- Prefer concise, high-signal language
-- Explain why before adding strict rules
-- Write goals before steps
-- Keep artifacts small enough to stay legible
-- Prefer merging into the right existing category over creating another thin skill
-- Treat reusable prompts and skills as harness components, not just text outputs
+| Reference | Read when |
+| --- | --- |
+| `references/artifact-packaging.md` | Prompt, skill, and scoped-rule boundaries need a closer decision |
+| `references/prompt-design.md` | A reusable prompt needs detailed design or diagnosis |
+| `references/prompt-evaluation.md` | Prompt behavior needs a lightweight comparison or grading rubric |
+| `references/workflows.md` | Translating philosophy into adaptive, sequential, or branching workflows |
+| `references/output-patterns.md` | A presentation pattern would help explain the result; templates are optional |
+| `references/openai_yaml.md` | Creating or updating UI fields, invocation policy, or tool dependencies |

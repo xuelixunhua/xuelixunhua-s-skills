@@ -2,14 +2,14 @@
 
 ## Start With Strategy, Not Steps
 
-Before writing a workflow, define the reasoning pattern that should guide it:
+Strategy philosophy sets direction and tradeoffs, then guides workflow selection. Preserve the user's established philosophy when simplifying procedures. Before writing a workflow, define the task-specific judgment that should guide it:
 
-1. What counts as success?
+1. What counts as success, and which qualities take priority when goals conflict?
 2. What is the best starting point?
 3. What evidence should cause a course correction?
 4. What is the stop condition?
 
-This keeps the skill from becoming a brittle checklist. Add explicit steps only when the work is fragile, order-dependent, or safety-critical.
+This keeps the skill from becoming a brittle checklist. Add explicit steps only when the work is fragile, order-dependent, or safety-critical. Even a fixed sequence should retain the purpose and boundaries that explain it.
 
 ## Philosophy-First Pattern
 
@@ -24,7 +24,7 @@ Use this when the task varies a lot but still needs a stable way of thinking:
 4. Stop when the success criteria are met.
 ```
 
-This pattern works well for research, debugging, triage, and other tasks where rigid procedures would over-constrain the model.
+These questions work well for research, debugging, and triage. Replace their generic wording with the domain's real choices. For example, a research skill might prioritize strengthening a durable explanatory framework, choose source evidence before commentary, revise mechanisms when sources conflict, and finish when the intended decision is supported.
 
 ## Sequential Workflows
 

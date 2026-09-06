@@ -55,7 +55,7 @@
     {
       "name": "skill-creator",
       "path": "skills/skill-creator",
-      "source": "~/.agents/skills/skill-creator"
+      "source": "~/.codex/skills/skill-creator"
     }
   ],
   "excluded": [

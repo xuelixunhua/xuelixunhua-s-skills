@@ -1,29 +1,35 @@
 ---
 name: web-access
 license: MIT
-github: https://github.com/eze-is/web-access
 description:
-  所有联网操作必须通过此 skill 处理，包括：搜索、网页抓取、登录后操作、网络交互等。
-  触发场景：用户要求搜索信息、查看网页内容、访问需要登录的网站、操作网页界面、抓取社交媒体内容（小红书、微博、推特等）、读取动态渲染页面、以及任何需要真实浏览器环境的网络任务。
+  为 Codex 路由所有联网任务：搜索和核实公开信息、读取网页或原始页面、处理动态站点、
+  使用登录态浏览器、定位本机浏览器中的已访问页面，以及执行受控网页交互。
+  当用户要求搜索、浏览 URL、查最新信息、抓取网页或社交平台内容、访问内部系统、
+  使用登录态、上传、提交或操作网站时使用。公开网页优先走 Codex 原生 Web 工具；
+  只有动态、登录态或真实交互确有必要时才升级到浏览器/CDP。
 metadata:
   author: 一泽Eze
-  version: "2.4.1"
+  github: https://github.com/eze-is/web-access
+  version: "2.5.3-codex.1"
+  upstream_commit: "7af34af"
 ---
 
-# web-access Skill
+# web-access
 
-## 前置检查
+## Codex 原生通道优先
 
-在开始联网操作前，先检查 CDP 模式可用性：
+公开网页不需要先启动 CDP。先定义成功标准，再选择能以最小代价获得足够证据的通道；把每一步结果当作证据，路径没有实质推进时改变假设或通道，达成目标即停止。
 
-```bash
-bash ~/.claude/skills/web-access/scripts/check-deps.sh
-```
+当前 Codex 中，公开网络任务优先使用会话提供的原生 Web 工具，例如 `web__run` 的搜索、打开、页面内查找、点击和截图能力。已知 URL 时先直接读取该 URL；搜索用于发现来源，不用于替代一手来源。
 
-- **Node.js 22+**：必需（使用原生 WebSocket）。版本低于 22 可用但需安装 `ws` 模块。
-- **Chrome remote-debugging**：在 Chrome 地址栏打开 `chrome://inspect/#remote-debugging`，勾选 **"Allow remote debugging for this browser instance"** 即可，可能需要重启浏览器。
+| 场景 | 首选起点 | 升级条件 |
+|------|----------|----------|
+| 公开信息发现或核实 | Web 搜索后打开官网、原始页面或源码 | 搜索没有质量提升时，改查明确的一手来源 |
+| 已知的公开 URL | 原生 Web 工具直接读取 | 仅在需要原始 HTML、meta 或 JSON-LD 时取原始响应 |
+| 动态页面、登录态、站内导航或交互 | 会话中的原生浏览器控制能力 | 原生浏览器无法获得所需 DOM、登录态或交互能力时，使用 CDP |
+| 用户明确指向的已访问页面或内部系统 | 本机书签/历史定位精确 URL | 得到目标 URL 后再进入浏览器 |
 
-检查通过后再启动 CDP Proxy 执行操作，未通过则引导用户完成设置。
+原生通道已经达到成功标准时，不启动 CDP，也不做浏览器前置检查。第三方 Markdown 转换服务只在正文型页面确实节省上下文、且信息损失可接受时使用；不要把它当作仪表盘、商品页或精确字段的权威来源。
 
 ## 浏览哲学
 
@@ -33,7 +39,7 @@ bash ~/.claude/skills/web-access/scripts/check-deps.sh
 
 **① 拿到请求** — 先明确用户要做什么，定义成功标准：什么算完成了？需要获取什么信息、执行什么操作、达到什么结果？这是后续所有判断的锚点。
 
-**② 选择起点** — 根据任务性质、平台特征、达成条件，选一个最可能直达的方式作为第一步去验证。一次成功当然最好；不成功则在③中调整。比如，需要操作页面、需要登录态、已知静态方式不可达的平台（小红书、微信公众号等）→ 直接 CDP
+**② 选择起点** — 根据任务性质、平台特征、达成条件，选一个最可能直达的方式作为第一步去验证。一次成功当然最好；不成功则在③中调整。公开页面先用原生 Web 通道；需要操作页面、登录态或已知静态方式无效的平台（小红书、微信公众号等）时，直接使用原生浏览器或 CDP。
 
 **③ 过程校验** — 每一步的结果都是证据，不只是成功或失败的二元信号。用结果对照①的成功标准，更新你对目标的判断：路径在推进吗？结果的整体面貌（质量、相关度、量级）是否指向目标可达？发现方向错了立即调整，不在同一个方式上反复重试——搜索没命中不等于"还没找对方法"，也可能是"目标不存在"；API 报错、页面缺少预期元素、重试无改善，都是在告诉你该重新评估方向。遇到弹窗、登录墙等障碍，判断它是否真的挡住了目标：挡住了就处理，没挡住就绕过——内容可能已在页面 DOM 中，交互只是展示手段。
 
@@ -45,13 +51,13 @@ bash ~/.claude/skills/web-access/scripts/check-deps.sh
 
 | 场景 | 工具 |
 |------|------|
-| 搜索摘要或关键词结果，发现信息来源 | **WebSearch** |
-| URL 已知，需要从页面定向提取特定信息 | **WebFetch**（拉取网页内容，由小模型根据 prompt 提取，返回处理后结果） |
-| URL 已知，需要原始 HTML 源码（meta、JSON-LD 等结构化字段） | **curl** |
-| 非公开内容，或已知静态层无效的平台（小红书、微信公众号等公开内容也被反爬限制） | **浏览器 CDP**（直接，跳过静态层） |
-| 需要登录态、交互操作，或需要像人一样在浏览器内自由导航探索 | **浏览器 CDP** |
+| 搜索摘要或关键词结果，发现信息来源 | **Codex 原生 Web 搜索** |
+| URL 已知，需要从页面定向提取特定信息 | **Codex 原生 Web 读取** |
+| URL 已知，需要原始 HTML 源码（meta、JSON-LD 等结构化字段） | **定向 HTTP 读取**；Windows 命令行使用 `curl.exe` |
+| 非公开内容，或已知静态层无效的平台（小红书、微信公众号等公开内容也被反爬限制） | **原生浏览器或 CDP**（直接，跳过静态层） |
+| 需要登录态、交互操作，或需要像人一样在浏览器内自由导航探索 | **原生浏览器或 CDP** |
 
-浏览器 CDP 不要求 URL 已知——可从任意入口出发，通过页面内搜索、点击、跳转等方式找到目标内容。WebSearch、WebFetch、curl 均不处理登录态。
+浏览器 CDP 不要求 URL 已知——可从任意入口出发，通过页面内搜索、点击、跳转等方式找到目标内容。公开 Web 读取和定向 HTTP 请求不处理用户浏览器登录态。
 
 **Jina**（可选预处理层，可与 WebFetch/curl 组合使用，由于其特性可节省 tokens 消耗，请积极在任务合适时组合使用）：第三方网络服务，可将网页转为 Markdown，大幅节省 token 但可能有信息损耗。调用方式为 `r.jina.ai/example.com`（URL 前加前缀，不保留原网址 http 前缀），限 20 RPM。适合文章、博客、文档、PDF 等以正文为核心的页面；对数据面板、商品页等非文章结构页面可能提取到错误区块。
 
@@ -63,79 +69,97 @@ bash ~/.claude/skills/web-access/scripts/check-deps.sh
 
 浏览网页时，**先了解页面结构，再决定下一步动作**。不需要提前规划所有步骤。
 
+### 补充：本地浏览器资源
+
+仅当用户明确指向**本人访问过的页面**（"我之前看的那个讲 X 的文章"、"上次打开过的 XX 面板"）或**组织内部系统**（"我们的 XX 平台"、"公司那个 YY 系统"等公网搜不到的目标）时，检索本地浏览器（Chrome / Edge）书签/历史。只返回与任务相关的少量候选，不暴露无关历史：
+
+```powershell
+$SkillRoot = 'C:\Users\xueli\.codex\skills\web-access'
+node "$SkillRoot\scripts\find-url.mjs" [关键词...] [--only bookmarks|history] [--browser chrome|edge] [--limit N] [--since 1d|7h|YYYY-MM-DD] [--sort recent|visits]
+```
+
+关键词空格分词、多词 AND，匹配 title + url（可省略）；默认遍历所有已安装的 Chromium 系浏览器（Chrome、Edge），`--browser` 限定单一来源；`--since` / `--sort` 仅作用于历史；默认按最近访问倒序，`--sort visits` 按访问次数排序（适合"高频访问的网站"这类场景）。历史查询依赖本机 `sqlite3`，缺失时说明限制，不自动安装软件。
+
 ### 程序化操作与 GUI 交互
 
 浏览器内操作页面有两种方式：
 
-- **程序化方式**（构造 URL 直接导航、eval 操作 DOM）：成功时速度快、精确，但对网站来说不是正常用户行为，更容易触发反爬机制。
+- **程序化方式**（构造 URL 直接导航、eval 操作 DOM）：成功时速度快、精确，但对网站来说不是正常用户行为，可能触发反爬机制。
 - **GUI 交互**（点击按钮、填写输入框、滚动浏览）：GUI 是为人设计的，网站不会限制正常的 UI 操作，确定性最高，但步骤多、速度慢。
 
-根据对目标平台的了解来判断。当程序化方式受阻时，GUI 交互是可靠的兜底。
+根据对目标平台的了解来灵活选择方式。GUI 交互也是程序化方式的有效探测——通过一次真实交互观察站点的实际行为（URL 模式、必需参数、页面跳转逻辑），为后续程序化操作提供依据；同时当程序化方式受阻时，GUI 交互是可靠的兜底。
 
-**站点内 URL 的可靠性**：站点自己生成的链接（DOM 中的 href）天然携带平台所需的完整上下文，而手动构造的 URL 可能缺失隐式必要参数，导致被拦截、返回错误页面、甚至触发反爬。当构造的 URL 出现这类异常时，应考虑是否是缺失参数所致。
+**站点内交互产生的链接是可靠的**：通过用户视角中的可交互单元（卡片、条目、按钮）进行的站点内交互，自然到达的 URL 天然携带平台所需的完整上下文。而手动构造的 URL 可能缺失隐式必要参数，导致被拦截、返回错误页面、甚至触发反爬。
 
-## 浏览器 CDP 模式
+## 浏览器通道选择
 
-通过 CDP Proxy 直连用户日常 Chrome，天然携带登录态，无需启动独立浏览器。
+需要登录态或真实交互时，先检查当前宿主已提供的浏览器能力；可用时按该工具的入口和操作文档执行。用户已经指定的浏览器或标签页直接沿用，无需再次选择。只有宿主能力不可用或无法完成目标时，才进入下面的独立 CDP Proxy 路径；不得把旧 Proxy 启动作为所有浏览器任务的前置。
+
+## 独立 CDP Proxy 回退
+
+通过 CDP Proxy 直连用户日常浏览器（Chrome / Edge / Chromium 等 Chromium 系），天然携带登录态，无需启动独立浏览器。
 若无用户明确要求，不主动操作用户已有 tab，所有操作都在自己创建的后台 tab 中进行，保持对用户环境的最小侵入。不关闭用户 tab 的前提下，完成任务后关闭自己创建的 tab，保持环境整洁。
 
 ### 启动
 
-```bash
-bash ~/.claude/skills/web-access/scripts/check-deps.sh
+```powershell
+$SkillRoot = 'C:\Users\xueli\.codex\skills\web-access'
+node "$SkillRoot\scripts\check-deps.mjs"
 ```
 
-脚本会依次检查 Node.js、Chrome 端口，并确保 Proxy 已连接（未运行则自动启动并等待）。Proxy 启动后持续运行。
+独立 CDP 回退使用此脚本检查 Node.js、浏览器调试端口并连接 Proxy；未运行时会启动，首次运行可能创建 config.env 模板。若返回 exit 2，先核对用户本轮已指定的浏览器和既有配置；只有仍存在会改变登录身份或任务结果的多种选择时才询问。不要为临时选择写入永久偏好，也不要静默切换账号。Windows 不使用 Bash / WSL 前置检查。
 
 ### Proxy API
 
-所有操作通过 curl 调用 HTTP API：
+所有操作通过 `curl.exe` 调用 HTTP API，避免 PowerShell 的 `curl` 别名：
 
 ```bash
 # 列出用户已打开的 tab
-curl -s http://localhost:3456/targets
+curl.exe -s http://localhost:3456/targets
 
-# 创建新后台 tab（自动等待加载）
-curl -s "http://localhost:3456/new?url=https://example.com"
+# 创建新后台 tab（自动等待加载）— URL 走 POST body，避免目标 URL 含 query 时被切分
+curl.exe -s -X POST --data-raw 'https://example.com' http://localhost:3456/new
 
 # 页面信息
-curl -s "http://localhost:3456/info?target=ID"
+curl.exe -s "http://localhost:3456/info?target=ID"
 
 # 执行任意 JS：可读写 DOM、提取数据、操控元素、触发状态变更、提交表单、调用内部方法
-curl -s -X POST "http://localhost:3456/eval?target=ID" -d 'document.title'
+curl.exe -s -X POST "http://localhost:3456/eval?target=ID" -d 'document.title'
 
 # 捕获页面渲染状态（含视频当前帧）
-curl -s "http://localhost:3456/screenshot?target=ID&file=/tmp/shot.png"
+curl.exe -s "http://localhost:3456/screenshot?target=ID" -o "$env:TEMP\web-access-shot.png"
 
-# 导航、后退
-curl -s "http://localhost:3456/navigate?target=ID&url=URL"
-curl -s "http://localhost:3456/back?target=ID"
+# 导航（URL 走 POST body，target 走 query）、后退
+curl.exe -s -X POST --data-raw 'https://example.com' "http://localhost:3456/navigate?target=ID"
+curl.exe -s "http://localhost:3456/back?target=ID"
 
 # 点击（POST body 为 CSS 选择器）— JS el.click()，简单快速，覆盖大多数场景
-curl -s -X POST "http://localhost:3456/click?target=ID" -d 'button.submit'
+curl.exe -s -X POST "http://localhost:3456/click?target=ID" -d 'button.submit'
 
 # 真实鼠标点击 — CDP Input.dispatchMouseEvent，算用户手势，能触发文件对话框
-curl -s -X POST "http://localhost:3456/clickAt?target=ID" -d 'button.upload'
+curl.exe -s -X POST "http://localhost:3456/clickAt?target=ID" -d 'button.upload'
 
 # 文件上传 — 直接设置 file input 的本地文件路径，绕过文件对话框
-curl -s -X POST "http://localhost:3456/setFiles?target=ID" -d '{"selector":"input[type=file]","files":["/path/to/file.png"]}'
+curl.exe -s -X POST "http://localhost:3456/setFiles?target=ID" -d '{"selector":"input[type=file]","files":["/path/to/file.png"]}'
 
 # 滚动（触发懒加载）
-curl -s "http://localhost:3456/scroll?target=ID&y=3000"
-curl -s "http://localhost:3456/scroll?target=ID&direction=bottom"
+curl.exe -s "http://localhost:3456/scroll?target=ID&y=3000"
+curl.exe -s "http://localhost:3456/scroll?target=ID&direction=bottom"
 
 # 关闭 tab
-curl -s "http://localhost:3456/close?target=ID"
+curl.exe -s "http://localhost:3456/close?target=ID"
 ```
 
 ### 页面内导航
 
 两种方式打开页面内的链接：
 
-- **`/click`**：在当前 tab 内直接点击，简单直接，串行处理。适合需要在同一页面内连续操作的场景，如点击展开、翻页、进入详情等。
-- **`/new` + 完整 URL**：从 DOM 提取对象链接的完整地址（包含所有查询参数），在新 tab 中打开。适合需要同时访问多个页面的场景。
+- **`/click`**：在当前 tab 内直接点击用户视角中的可交互单元，简单直接，串行处理。适合需要在同一页面内连续操作的场景，如点击展开、翻页、进入详情等。
+- **`/new` + 完整 URL**：使用目标链接的完整地址（包含所有URL参数），在新 tab 中打开。适合需要同时访问多个页面的场景。
 
-很多网站的链接包含会话相关的参数（如 token），这些参数是正常访问所必需的。提取 URL 时应保留完整地址，不要裁剪或省略参数。
+很多网站的链接包含会话相关的参数（如 token），这些参数是正常访问所必需的。提取 URL 时应保留完整地址，不要裁剪或省略参数。URL 通过 POST body 原样传入 `/new` 或 `/navigate`。
+
+> **v2.5.3 迁移提示**：若引用的站点经验文件（`references/site-patterns/*.md`）或其它脚本中仍含 `GET /new?url=...` 或 `/navigate?target=...&url=...` 的旧写法，调用会收到迁移指引。按 [`references/migration-2.5.3.md`](references/migration-2.5.3.md) 就地改写为 POST body 后再使用，并顺手把该站点经验文件更新掉。
 
 ### 媒体资源提取
 
@@ -151,16 +175,16 @@ curl -s "http://localhost:3456/close?target=ID"
 
 ### 视频内容获取
 
-用户 Chrome 真实渲染，截图可捕获当前视频帧。核心能力：通过 `/eval` 操控 `<video>` 元素（获取时长、seek 到任意时间点、播放/暂停/全屏），配合 `/screenshot` 采帧，可对视频内容进行离散采样分析。
+用户浏览器真实渲染，截图可捕获当前视频帧。核心能力：通过 `/eval` 操控 `<video>` 元素（获取时长、seek 到任意时间点、播放/暂停/全屏），配合 `/screenshot` 采帧，可对视频内容进行离散采样分析。
 
 ### 登录判断
 
-用户日常 Chrome 天然携带登录态，大多数常用网站已登录。
+用户日常浏览器天然携带登录态，大多数常用网站已登录。
 
 登录判断的核心问题只有一个：**目标内容拿到了吗？**
 
 打开页面后先尝试获取目标内容。只有当确认**目标内容无法获取**且判断登录能解决时，才告知用户：
-> "当前页面在未登录状态下无法获取[具体内容]，请在你的 Chrome 中登录 [网站名]，完成后告诉我继续。"
+> "当前页面在未登录状态下无法获取[具体内容]，请在你的浏览器中登录 [网站名]，完成后告诉我继续。"
 
 登录完成后无需重启任何东西，直接刷新页面继续。
 
@@ -168,7 +192,13 @@ curl -s "http://localhost:3456/close?target=ID"
 
 用 `/close` 关闭自己创建的 tab，必须保留用户原有的 tab 不受影响。
 
-Proxy 持续运行，不建议主动停止——重启后需要在 Chrome 中重新授权 CDP 连接。
+Proxy 持续运行，不建议主动停止——重启后需要在浏览器中重新授权 CDP 连接。
+
+## 账户、隐私与外部状态
+
+- 打开页面后先尝试获取目标内容。只有内容确实无法获取、且登录能解决时，才请用户在其浏览器中登录。
+- 上传文件、发帖、提交表单、下单、删除、授权或改变外部状态前，确认目标站点、对象和内容。用户已经给出明确对象与动作时可以执行，但不能自行扩大操作范围。
+- 社交平台和自动化操作可能触发限流或封禁。涉及发布、批量操作或账号风险时，先向用户说明具体风险和即将发生的动作。
 
 ## 并行调研：子 Agent 分治策略
 
@@ -178,7 +208,7 @@ Proxy 持续运行，不建议主动停止——重启后需要在 Chrome 中重
 - **速度**：多子 Agent 并行，总耗时约等于单个子任务时长
 - **上下文保护**：抓取内容不进入主 Agent 上下文，主 Agent 只接收摘要，节省 token
 
-**并行 CDP 操作**：每个子 Agent 在当前用户浏览器实例中，自行创建所需的后台 tab（`/new`），自行操作，任务结束自行关闭（`/close`）。所有子 Agent 共享一个 Chrome、一个 Proxy，通过不同 targetId 操作不同 tab，无竞态风险。
+**并行 CDP 操作**：每个子 Agent 在当前用户浏览器实例中，自行创建所需的后台 tab（`/new`），自行操作，任务结束自行关闭（`/close`）。所有子 Agent 共享一个浏览器、一个 Proxy，通过不同 targetId 操作不同 tab，无竞态风险。
 
 **子 Agent Prompt 写法：目标导向，而非步骤指令**
 - 必须在子 Agent prompt 中写 `必须加载 web-access skill 并遵循指引` ，子 Agent 会自动加载 skill，无需在 prompt 中复制 skill 内容或指定路径。
@@ -211,9 +241,14 @@ Proxy 持续运行，不建议主动停止——重启后需要在 Chrome 中重
 
 操作中积累的特定网站经验，按域名存储在 `references/site-patterns/` 下。
 
-已有经验的站点：!`ls ${CLAUDE_SKILL_DIR}/references/site-patterns/ 2>/dev/null | sed 's/\.md$//' || echo "暂无"`
+确定目标站点后，可先按请求或 URL 匹配本地经验：
 
-确定目标网站后，如果上方列表中有匹配的站点，必须读取对应文件获取先验知识（平台特征、有效模式、已知陷阱）。经验内容标注了发现日期，当作可能有效的提示而非保证——如果按经验操作失败，回退通用模式并更新经验文件。
+```powershell
+$SkillRoot = 'C:\Users\xueli\.codex\skills\web-access'
+node "$SkillRoot\scripts\match-site.mjs" '用户请求或目标 URL'
+```
+
+确定目标网站后，如果前置检查输出的 site-patterns 列表中有匹配的站点，必须读取对应文件获取先验知识（平台特征、有效模式、已知陷阱）。经验内容标注了发现日期，当作可能有效的提示而非保证——如果按经验操作失败，回退通用模式并更新经验文件。
 
 CDP 操作成功完成后，如果发现了有必要记录经验的新站点或新模式（URL 结构、平台特征、操作策略），主动写入对应的站点经验文件。只写经过验证的事实，不写未确认的猜测。
 
@@ -240,4 +275,5 @@ updated: 2026-03-19
 | 文件 | 何时加载 |
 |------|---------|
 | `references/cdp-api.md` | 需要 CDP API 详细参考、JS 提取模式、错误处理时 |
+| `references/migration-2.5.3.md` | 遇到旧式 `/new?url=` 或 `/navigate?...&url=` 调用时 |
 | `references/site-patterns/{domain}.md` | 确定目标网站后，读取对应站点经验 |
