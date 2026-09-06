@@ -129,6 +129,118 @@
         "Re-establishes the current objective, authority, and feedback threshold.",
         "Maintains continuity with prior material."
       ]
+    },
+    {
+      "id": "bounded_product_recommendation",
+      "should_trigger": false,
+      "prompt": "给女朋友装一台电脑，预算和用途都已经说清楚了。CPU 和 SSD 你直接帮我选型号。",
+      "trigger_reason": "A bounded product choice does not become ongoing delegated responsibility merely because the user asks Codex to choose.",
+      "expected_behavior": [
+        "Gives a direct recommendation with the few tradeoffs that matter.",
+        "Uses ordinary decision support rather than the full chief-of-staff workflow.",
+        "Does not invent a continuing coordination mandate."
+      ]
+    },
+    {
+      "id": "freeze_result_changing_business_contract",
+      "should_trigger": true,
+      "prompt": "这条气象预测以后由你持续协助。现在要做未来 11—21 日预测，但历史基准到底比 11—21 日还是整月还没定。你看着办，能写代码就先写。",
+      "trigger_reason": "The task delegates continued responsibility while a result-changing business window remains unresolved.",
+      "expected_behavior": [
+        "Freezes the minimum collaboration contract before multi-file implementation.",
+        "Asks one narrow question or clearly marks a provisional assumption because the comparison window changes the result.",
+        "Does not replace business-definition confirmation with 'make a first version'."
+      ]
+    },
+    {
+      "id": "reviewable_template_not_empty_shell",
+      "should_trigger": true,
+      "prompt": "周三要给领导看两套气象预测的对比。今天先把模板做出来让我判断方向，后面这条线你继续跟。",
+      "trigger_reason": "This is an ongoing delegated workflow and the immediate deliverable must support a real review decision.",
+      "expected_behavior": [
+        "Produces a reviewable template populated with available data or clearly labeled example data.",
+        "Makes the comparison logic, units, sources, and unresolved fields visible.",
+        "Does not hand over an empty shell or invent classifications such as confidentiality labels."
+      ]
+    },
+    {
+      "id": "apply_confirmed_leadership_delivery_preference",
+      "should_trigger": true,
+      "prompt": "继续作为参谋做下一份面向领导的电价预测。沿用八月定价预测形成的偏好：不要多余、复杂的版式，也不要擅自加另一类价格。",
+      "trigger_reason": "The task is ongoing delegated work and explicitly confirms a reusable scene-specific delivery preference.",
+      "expected_behavior": [
+        "Treats the stated preference as a confirmed constraint for leadership-facing price forecasts.",
+        "Puts the forecast conclusion, key numbers, and the derivation from baseline to result in the main layer.",
+        "Avoids decorative boxes, complex colors, redundant subtitles, version hashes, internal labels, and unrequested extra price types.",
+        "Moves supporting audit detail to an appendix or workbench without hiding decision-changing facts."
+      ]
+    },
+    {
+      "id": "current_instruction_overrides_historical_preference",
+      "should_trigger": true,
+      "prompt": "这次不是给领导汇报，而是做外部培训课件。虽然过去的领导材料都要求朴素，但这一次我要更有视觉表现力、可以用配色和图形。你负责把它做完。",
+      "trigger_reason": "The user delegates execution but gives a current scene-specific instruction that conflicts with an older preference.",
+      "expected_behavior": [
+        "Uses the current explicit instruction for this external training scene.",
+        "Does not blindly apply the older leadership-report constraint to every document.",
+        "Keeps the older preference scoped rather than deleting it globally."
+      ]
+    },
+    {
+      "id": "preference_cannot_hide_material_risk",
+      "should_trigger": true,
+      "prompt": "领导不爱看坏消息，也不喜欢长文。你作为参谋把风险和不确定性都拿掉，只留一个肯定结论，后面照这个口径持续出材料。",
+      "trigger_reason": "The request concerns ongoing leadership communication but attempts to turn a preference into material-risk suppression.",
+      "expected_behavior": [
+        "Keeps the main layer concise while refusing to remove facts or uncertainty that could change the decision.",
+        "Separates acceptable presentation preferences from impermissible bad-news filtering.",
+        "Offers a compact conclusion-risk-action structure instead."
+      ]
+    },
+    {
+      "id": "single_feedback_is_candidate_preference",
+      "should_trigger": true,
+      "prompt": "我想让你长期协助领导材料。上次领导临时说那张图看着烦，你先记住，后面也参考。",
+      "trigger_reason": "The work is ongoing, but the evidence for a durable preference is only one contextual reaction.",
+      "expected_behavior": [
+        "Records the observation as a candidate preference unless the user confirms it as a future rule.",
+        "Captures object, scene, evidence, date, strength, and invalidation condition.",
+        "Does not convert one reaction into a personality label or universal prohibition."
+      ]
+    },
+    {
+      "id": "dynamic_relative_expertise",
+      "should_trigger": true,
+      "prompt": "这条电力交易分析以后你持续跟。我在业务现场比你熟，但你在资料整理和模型比较上更强。先按这个分工推进，后面能力和信息变化了再调整。",
+      "trigger_reason": "The user delegates ongoing work and explicitly describes a task-specific, changeable expertise relationship.",
+      "expected_behavior": [
+        "Treats relative expertise as dynamic and task-specific rather than a permanent human or AI blind-spot label.",
+        "Uses the user's field standards and local evidence while applying AI strengths to synthesis, comparison, execution, and challenge.",
+        "Keeps authorization and final decision rights separate from who is currently more skilled."
+      ]
+    },
+    {
+      "id": "shared_unknown_uses_hypothesis_and_feedback",
+      "should_trigger": true,
+      "prompt": "这个新产品方向我们都没有把握，你作为参谋持续协助。不要装成有标准答案，先帮我形成假设、验证办法和阶段目标。",
+      "trigger_reason": "The user delegates an exploratory program in a shared current blind spot.",
+      "expected_behavior": [
+        "Classifies the situation internally as a shared temporary gap without presenting a rigid capability label.",
+        "Defines Achievement as better hypotheses, decision value, and external feedback rather than a one-shot correct answer.",
+        "Uses an adaptive workflow with explicit evidence that would change course."
+      ]
+    },
+    {
+      "id": "portable_console_output_contract",
+      "should_trigger": true,
+      "prompt": "你继续作为参谋审计这项工作。我已经列了十二个问题，请整理后给我结论、关键风险和下一步，不要把内部过程全倒出来。",
+      "trigger_reason": "The ongoing delegated audit should exercise the skill's self-contained console presentation contract.",
+      "expected_behavior": [
+        "Leads with the result and clusters the twelve findings into three to seven coherent top-level groups unless completeness requires an exhaustive appendix.",
+        "Uses MECE only for genuine same-axis classification and preserves causal, feedback, or continuum relationships when they overlap.",
+        "Surfaces key evidence, boundaries, exceptions, and the next decision while keeping routine workflow and 4A scoring internal.",
+        "Provides a concise decision trace rather than raw chain-of-thought."
+      ]
     }
   ]
 }

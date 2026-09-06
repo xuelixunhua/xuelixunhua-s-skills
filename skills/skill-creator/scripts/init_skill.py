@@ -1,233 +1,216 @@
 #!/usr/bin/env python3
 """
-Skill initializer that creates a philosophy-first skill scaffold.
+Create a concise, philosophy-first skill scaffold.
 
-Usage:
-    init_skill.py <skill-name> --path <path>
-
-Examples:
-    init_skill.py my-new-skill --path skills/public
-    init_skill.py my-api-helper --path skills/private
-    init_skill.py custom-skill --path /custom/location
+This combines the user-maintained Skill Creator's design method with selected
+current Codex conventions from the OpenAI-bundled Skill Creator.
 """
 
+import argparse
+import re
 import sys
 from pathlib import Path
 
+from generate_openai_yaml import write_openai_yaml
+
+
+MAX_SKILL_NAME_LENGTH = 64
+ALLOWED_RESOURCES = {"scripts", "references", "assets", "evals"}
 
 SKILL_TEMPLATE = """---
 name: {skill_name}
-description: [TODO: State what reusable capability this skill provides and when Codex should trigger it. Mention representative requests, adjacent phrasings, and important boundaries.]
+description: "TODO: State what capability this skill provides and the requests or contexts that should trigger it."
 ---
 
 # {skill_title}
 
 ## Mission
 
-[TODO: Describe the durable capability this skill adds. Write the job to be done, not the history of how you discovered it.]
+[TODO: Describe the durable job this skill performs and who it serves.]
 
 ## Success Criteria
 
-[TODO: Define what success looks like.]
-- [Example: Produces the right artifact or answer for the user]
-- [Example: Uses the preferred tools or resources when they matter]
-- [Example: Stops once the success criteria are met]
-
-## Skill Type
-
-[TODO: Choose the dominant shape and delete the others.]
-- Fixed workflow for a repeatable job
-- Agent framework for a broader capability
-- Hybrid of the two when a reusable philosophy wraps a few stable subroutines
-
-## Trigger Surface
-
-[TODO: List the kinds of user requests that should trigger this skill, plus nearby cases that it should absorb instead of splitting into separate skills.]
+- [TODO: Define the observable result.]
+- [TODO: Define the important quality or safety boundary.]
 
 ## Strategy Philosophy
 
-Explain how the agent should think before you explain how it should act.
+[TODO: Define the direction and tradeoffs that govern this skill: what it prioritizes, how it chooses a route, what evidence changes the approach, and when it is done. Preserve the user's core judgment; avoid generic slogans.]
 
-1. Define the success criteria.
-2. Choose the best starting point.
-3. Treat intermediate results as evidence and correct course early.
-4. Stop when the success criteria are met.
+## Workflow
 
-[TODO: Replace this with the domain-specific reasoning pattern for the skill.]
+1. [TODO: Add only the steps whose order or existence materially affects the result.]
+2. [TODO]
 
-## Minimum Complete Toolkit
+## Resources
 
-[TODO: List the smallest set of tools and resources that make this capability reliable.]
-- `scripts/` for repeated deterministic work
-- `references/` for detailed facts, schemas, or domain notes
-- `assets/` for templates and output materials
+[TODO: Route each required script, reference, asset, or eval. Delete this section if none are needed.]
 
-## Necessary Facts and Boundaries
+## Quality Check
 
-[TODO: Record non-obvious facts, preferred entry points, terminology, quality bars, and safety constraints.]
-- Known best entry points:
-- Important terms:
-- Risks or quality boundaries:
-
-## Workflow Or Decision Points
-
-[TODO: Add explicit steps only where the work is fragile, order-dependent, or safety-critical.]
-- If ...
-- If ...
-- Otherwise ...
-
-## Output Guidance
-
-[TODO: Describe the default output shape. Be as strict as the task requires, and no stricter.]
-
-## Examples
-
-[TODO: Add 2-3 realistic user requests that should trigger this skill.]
-
-## Resource Map
-
-[TODO: Explain when to open each reference or run each script.]
+- [TODO: Add the smallest checks that catch real failure modes.]
 """
 
-EXAMPLE_SCRIPT = '''#!/usr/bin/env python3
-"""
-Example helper script for {skill_name}
-
-Use scripts for repeated deterministic work that the agent should not keep
-reinventing from scratch.
-"""
+EXAMPLES = {
+    "scripts": '''#!/usr/bin/env python3
+"""Replace this placeholder with deterministic work that is repeatedly needed."""
 
 
 def main():
-    print("Replace this placeholder with a real helper for {skill_name}.")
+    raise NotImplementedError("Replace or delete this placeholder.")
 
 
 if __name__ == "__main__":
     main()
-'''
+''',
+    "references": """# Domain Reference
 
-EXAMPLE_REFERENCE = """# Domain Notes For {skill_title}
+Keep only facts, schemas, examples, or detailed methods that should load on demand.
+""",
+    "assets": """Replace this placeholder with a template or output asset, or delete it.
+""",
+    "evals": """# Evaluation Cases
 
-Use reference files for facts that are too detailed for SKILL.md but still worth
-loading when needed.
+1. Add a representative core request.
+2. Add a messy or ambiguous request.
+3. Add a near-boundary request that should not over-trigger.
+""",
+}
 
-## Terminology
+EXAMPLE_NAMES = {
+    "scripts": "example.py",
+    "references": "domain-reference.md",
+    "assets": "placeholder.txt",
+    "evals": "cases.md",
+}
 
-- [TODO: Define the important domain terms]
 
-## Preferred Starting Points
-
-- [TODO: Document the best first place to look or the best first command to run]
-
-## Hidden Constraints
-
-- [TODO: Note anything the model may not naturally remember or prioritize]
-
-## Examples
-
-- [TODO: Add a concrete example or edge case when helpful]
-"""
-
-EXAMPLE_ASSET = """# Example Asset Placeholder
-
-Use assets for templates, boilerplate projects, images, fonts, or any other file
-that should be used in the final output rather than read into context.
-"""
+def normalize_skill_name(raw_name):
+    """Normalize a proposed name to lowercase hyphen-case."""
+    normalized = raw_name.strip().lower()
+    normalized = re.sub(r"[^a-z0-9]+", "-", normalized)
+    normalized = re.sub(r"-{2,}", "-", normalized).strip("-")
+    return normalized
 
 
 def title_case_skill_name(skill_name):
-    """Convert a hyphenated skill name to title case."""
-    return " ".join(word.capitalize() for word in skill_name.split("-"))
+    """Convert a hyphenated skill name to a readable title."""
+    return " ".join(part.capitalize() for part in skill_name.split("-"))
 
 
-def init_skill(skill_name, path):
-    """Initialize a new skill directory with a philosophy-first template."""
-    skill_dir = Path(path).resolve() / skill_name
+def parse_resources(raw_resources):
+    if not raw_resources:
+        return []
 
+    resources = [item.strip() for item in raw_resources.split(",") if item.strip()]
+    invalid = sorted(set(resources) - ALLOWED_RESOURCES)
+    if invalid:
+        allowed = ", ".join(sorted(ALLOWED_RESOURCES))
+        raise ValueError(
+            f"Unknown resource type(s): {', '.join(invalid)}. Allowed: {allowed}"
+        )
+
+    return list(dict.fromkeys(resources))
+
+
+def create_resources(skill_dir, resources, include_examples):
+    for resource in resources:
+        resource_dir = skill_dir / resource
+        resource_dir.mkdir(exist_ok=True)
+        print(f"[OK] Created {resource}/")
+
+        if include_examples:
+            example_path = resource_dir / EXAMPLE_NAMES[resource]
+            example_path.write_text(EXAMPLES[resource], encoding="utf-8")
+            print(f"[OK] Created {resource}/{example_path.name}")
+
+
+def init_skill(skill_name, output_root, resources, include_examples, interfaces):
+    skill_dir = Path(output_root).resolve() / skill_name
     if skill_dir.exists():
-        print(f"Error: Skill directory already exists: {skill_dir}")
+        print(f"[ERROR] Skill directory already exists: {skill_dir}")
         return None
 
     try:
         skill_dir.mkdir(parents=True, exist_ok=False)
-        print(f"Created skill directory: {skill_dir}")
-    except Exception as exc:
-        print(f"Error creating directory: {exc}")
-        return None
-
-    skill_title = title_case_skill_name(skill_name)
-    skill_content = SKILL_TEMPLATE.format(
-        skill_name=skill_name,
-        skill_title=skill_title,
-    )
-
-    skill_md_path = skill_dir / "SKILL.md"
-    try:
-        skill_md_path.write_text(skill_content, encoding="utf-8")
-        print("Created SKILL.md")
-    except Exception as exc:
-        print(f"Error creating SKILL.md: {exc}")
-        return None
-
-    try:
-        scripts_dir = skill_dir / "scripts"
-        scripts_dir.mkdir(exist_ok=True)
-        example_script = scripts_dir / "example.py"
-        example_script.write_text(
-            EXAMPLE_SCRIPT.format(skill_name=skill_name),
+        title = title_case_skill_name(skill_name)
+        (skill_dir / "SKILL.md").write_text(
+            SKILL_TEMPLATE.format(skill_name=skill_name, skill_title=title),
             encoding="utf-8",
         )
-        example_script.chmod(0o755)
-        print("Created scripts/example.py")
+        print(f"[OK] Created {skill_dir / 'SKILL.md'}")
 
-        references_dir = skill_dir / "references"
-        references_dir.mkdir(exist_ok=True)
-        example_reference = references_dir / "domain_notes.md"
-        example_reference.write_text(
-            EXAMPLE_REFERENCE.format(skill_title=skill_title),
-            encoding="utf-8",
-        )
-        print("Created references/domain_notes.md")
+        if not write_openai_yaml(skill_dir, skill_name, interfaces):
+            return None
 
-        assets_dir = skill_dir / "assets"
-        assets_dir.mkdir(exist_ok=True)
-        example_asset = assets_dir / "example_asset.txt"
-        example_asset.write_text(EXAMPLE_ASSET, encoding="utf-8")
-        print("Created assets/example_asset.txt")
+        create_resources(skill_dir, resources, include_examples)
     except Exception as exc:
-        print(f"Error creating resource directories: {exc}")
+        print(f"[ERROR] Failed to initialize skill: {exc}")
         return None
 
-    print(f"\nSkill '{skill_name}' initialized successfully at {skill_dir}")
-    print("\nNext steps:")
-    print("1. Replace the TODOs in SKILL.md, starting with Trigger Surface and Strategy Philosophy")
-    print("2. Delete any placeholder resources that do not earn their keep")
-    print("3. Run the validator when the skill is ready")
-
+    print(f"\n[OK] Initialized '{skill_name}' at {skill_dir}")
+    print("Next:")
+    print("1. Replace the TODOs with the smallest complete method.")
+    print("2. Delete unused sections, folders, and placeholders.")
+    print("3. Run scripts/quick_validate.py with --ready from the Skill Creator.")
+    print("4. Choose checks proportional to the change; report behavioral evidence separately.")
     return skill_dir
 
 
 def main():
-    if len(sys.argv) < 4 or sys.argv[2] != "--path":
-        print("Usage: init_skill.py <skill-name> --path <path>")
-        print("\nSkill name requirements:")
-        print("  - Hyphen-case identifier (e.g. 'data-analyzer')")
-        print("  - Lowercase letters, digits, and hyphens only")
-        print("  - Max 64 characters")
-        print("  - Must match the directory name exactly")
-        print("\nExamples:")
-        print("  init_skill.py my-new-skill --path skills/public")
-        print("  init_skill.py my-api-helper --path skills/private")
-        print("  init_skill.py custom-skill --path /custom/location")
+    parser = argparse.ArgumentParser(
+        description="Create a concise, philosophy-first skill scaffold."
+    )
+    parser.add_argument("skill_name", help="Skill name; normalized to hyphen-case")
+    parser.add_argument("--path", required=True, help="Parent directory for the skill")
+    parser.add_argument(
+        "--resources",
+        default="",
+        help="Comma-separated list: scripts,references,assets,evals",
+    )
+    parser.add_argument(
+        "--examples",
+        action="store_true",
+        help="Add minimal placeholders to selected resource folders",
+    )
+    parser.add_argument(
+        "--interface",
+        action="append",
+        default=[],
+        help="agents/openai.yaml override in key=value form; repeat as needed",
+    )
+    args = parser.parse_args()
+
+    skill_name = normalize_skill_name(args.skill_name)
+    if not skill_name:
+        print("[ERROR] Skill name must contain at least one letter or digit.")
+        sys.exit(1)
+    if len(skill_name) > MAX_SKILL_NAME_LENGTH:
+        print(
+            f"[ERROR] Skill name is {len(skill_name)} characters; "
+            f"maximum is {MAX_SKILL_NAME_LENGTH}."
+        )
+        sys.exit(1)
+    if skill_name != args.skill_name:
+        print(f"[INFO] Normalized '{args.skill_name}' to '{skill_name}'.")
+
+    try:
+        resources = parse_resources(args.resources)
+    except ValueError as exc:
+        print(f"[ERROR] {exc}")
         sys.exit(1)
 
-    skill_name = sys.argv[1]
-    path = sys.argv[3]
+    if args.examples and not resources:
+        print("[ERROR] --examples requires at least one --resources value.")
+        sys.exit(1)
 
-    print(f"Initializing skill: {skill_name}")
-    print(f"Location: {path}\n")
-
-    result = init_skill(skill_name, path)
+    result = init_skill(
+        skill_name,
+        args.path,
+        resources,
+        args.examples,
+        args.interface,
+    )
     sys.exit(0 if result else 1)
 
 

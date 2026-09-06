@@ -1,0 +1,126 @@
+{
+  "suite_version": 1,
+  "skill_name": "content-master",
+  "purpose": "Measure implicit invocation from realistic raw prompts. Prompts must not name the target skill or reveal the expected label.",
+  "cases": [
+    {
+      "id": "positive-article-mainline",
+      "prompt": "我手里有访谈记录、行业资料和一些零散判断，彼此有重复也有冲突。请帮我整理成一篇能给团队讨论的文章，不能只是材料摘要，还要有清楚的主线和关键判断。",
+      "should_trigger": true,
+      "category": "writing-mainline",
+      "rationale": "需要从混杂材料中提炼主线、判断和文章结构。"
+    },
+    {
+      "id": "positive-deep-rewrite",
+      "prompt": "这篇稿子句子都通顺，但读起来像一堆正确的废话。请先判断问题究竟在措辞、结构还是观点机制，再重写成一篇有真实判断的文章，不要虚构我的经历。",
+      "should_trigger": true,
+      "category": "deep-rewrite",
+      "rationale": "AI 味来自结构和判断缺口，需要分析后重写。"
+    },
+    {
+      "id": "positive-meeting-master-note",
+      "prompt": "这里有六次项目会议的记录，背景、决定、争议和待办混在一起。请把它们整理成一份以后还能持续维护的主笔记，保留来源归属，同时把决策演变和未决问题讲清楚。",
+      "should_trigger": true,
+      "category": "durable-note",
+      "rationale": "需要保全来源并重组为可复用的长期笔记。"
+    },
+    {
+      "id": "positive-mechanism-analysis",
+      "prompt": "我们连续三个季度都在增加培训和检查，但同一类交付问题仍反复出现。请不要先给泛泛建议，先分析这个现象背后的系统机制、最强替代解释和下一步怎么验证。",
+      "should_trigger": true,
+      "category": "thinking-analysis",
+      "rationale": "需要问题定义、机制、反方和验证路径。"
+    },
+    {
+      "id": "positive-formal-report",
+      "prompt": "请把这些零散的进度事实、风险、部门意见和领导关注点整理成一份正式阶段报告。正文要先形成明确判断，再说明依据、边界和需要决策的事项，不能只是流水账。",
+      "should_trigger": true,
+      "category": "organizational-writing",
+      "rationale": "需要将材料加工为有判断和效力边界的组织文本。"
+    },
+    {
+      "id": "positive-knowledge-framework",
+      "prompt": "我已经积累了几十条关于 AI 工作流的笔记，但现在只能按来源回忆，不能按问题调用。请帮我重组为一套知识框架，说明核心对象、关键关系、适用边界和行动接口。",
+      "should_trigger": true,
+      "category": "knowledge-structure",
+      "rationale": "重点是知识关系和可调用结构，而不是文件管理。"
+    },
+    {
+      "id": "positive-conflicting-explanations",
+      "prompt": "团队对销量下滑有三种解释：价格、渠道和产品定位。现有证据互相冲突，请帮我建立判断链，说明当前最可能的机制、还不能下什么结论，以及最低成本的验证顺序。",
+      "should_trigger": true,
+      "category": "decision-judgment",
+      "rationale": "需要基于冲突证据形成判断、边界和验证顺序。"
+    },
+    {
+      "id": "positive-public-article-outline",
+      "prompt": "我想写一篇关于‘为什么很多 AI 工作流最后都变成了工具收藏’的公众号文章。请先判断这个题真正值得写的矛盾是什么，再给出核心立意和能够展开的详细提纲。",
+      "should_trigger": true,
+      "category": "topic-and-outline",
+      "rationale": "需要选题判断、立意、机制和文章结构。"
+    },
+    {
+      "id": "positive-workplace-briefing",
+      "prompt": "我明天要做一个三分钟阶段汇报，手上有十几项进展、风险、数据和待协调事项。请帮我先形成判断，再压成领导能迅速听懂并决定下一步的表达，不要写成流水账。",
+      "should_trigger": true,
+      "category": "workplace-expression",
+      "rationale": "需要完成职场汇报的判断、结构压缩、证据配置和行动接口。"
+    },
+    {
+      "id": "negative-translation",
+      "prompt": "把‘这个方案仍有三个关键假设没有验证’翻译成自然、准确的英文。",
+      "should_trigger": false,
+      "category": "simple-translation",
+      "rationale": "只是单句翻译。"
+    },
+    {
+      "id": "negative-local-polish",
+      "prompt": "把这句话改得更礼貌一些，意思不要变：‘你们的数据根本没法用，请重新发。’",
+      "should_trigger": false,
+      "category": "local-polish",
+      "rationale": "只是局部措辞调整，没有结构或判断问题。"
+    },
+    {
+      "id": "negative-format-conversion",
+      "prompt": "把下面三行内容转换成 Markdown 表格，不要改写、补充或解释：日期 8月1日，销量 20；日期 8月2日，销量 23；日期 8月3日，销量 19。",
+      "should_trigger": false,
+      "category": "pure-formatting",
+      "rationale": "只是机械格式转换。"
+    },
+    {
+      "id": "negative-long-book-pipeline",
+      "prompt": "我有一本 600 页的 EPUB，想按目录逐章处理，每章保留来源锚点，并持续维护一份主笔记。请先搭好拆章和续写流程。",
+      "should_trigger": false,
+      "category": "specialist-book-notes",
+      "rationale": "长书分章和持续主笔记应由专门的长书研究笔记能力负责。"
+    },
+    {
+      "id": "negative-investment-reports",
+      "prompt": "请把这五份券商关于铜供需的 PDF 研报整合成一份长期投研主笔记，按定义、机制、影响和跟踪抓手重组，并保留来源。",
+      "should_trigger": false,
+      "category": "specialist-research-synthesis",
+      "rationale": "投研材料整合应优先由专门的研究综合能力负责。"
+    },
+    {
+      "id": "negative-wiki-workspace",
+      "prompt": "请整理这个研究文件夹，把原始材料、wiki、脚本、输出和临时文件分层，建立材料索引，并让整个目录适合 Obsidian 和 LLM 长期使用。",
+      "should_trigger": false,
+      "category": "specialist-workspace",
+      "rationale": "核心任务是文件夹和 Wiki 工作区治理。"
+    },
+    {
+      "id": "negative-viral-titles",
+      "prompt": "围绕这篇公众号文章批量生成 30 个高点击潜力标题，分别评分，并选出最适合冷启动账号的 5 个。",
+      "should_trigger": false,
+      "category": "specialist-title-generation",
+      "rationale": "批量平台标题生成和评分应由专门的标题能力负责。"
+    },
+    {
+      "id": "negative-learning-coach",
+      "prompt": "我完全不懂贝叶斯更新。请从直觉开始讲懂它，然后出三道递进练习检查我是否真的会迁移使用。",
+      "should_trigger": false,
+      "category": "specialist-learning",
+      "rationale": "目标是理解、练习和迁移，应由学习教练能力负责。"
+    }
+  ]
+}

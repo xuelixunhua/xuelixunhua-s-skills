@@ -19,6 +19,6 @@ updated: 2026-04-12
 - 返回的 `app_msg_list[].link` 是公开文章页，可再用普通 HTTP 请求下载 HTML / 提取正文。
 
 ## 已知陷阱
-- Windows 上如果照 skill 文档直接跑 `check-deps.sh`，可能因为本机未装 WSL / bash 而失败；这时直接检查 `http://localhost:3456/targets` 是否可用即可。
+- Windows / Codex 环境使用 `scripts/check-deps.mjs`，不要再调用旧的 Bash / WSL 前置检查。
 - 直接拼后台接口但不走当前登录 tab 的 cookie 上下文，容易返回未登录或异常结果。
 - `rg` 在某些 WindowsApp 安装环境下可能无法从当前工作目录启动，必要时改用 PowerShell 自带检索。

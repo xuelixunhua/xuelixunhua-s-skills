@@ -7,7 +7,7 @@ Default to the smallest artifact that preserves the method:
 - Direct answer: for one-off tasks with no reuse value
 - Prompt: for reusable wording or framing that can travel as text
 - Skill: for reusable capabilities that need triggering, resources, or a durable agent philosophy
-- `AGENTS.md` or `CLAUDE.md`: for global, stable, cross-task rules
+- `AGENTS.md` or the host equivalent: stable rules within their actual user, repository, or subdirectory scope
 
 Do not create a new skill just because something is useful. Reusable does not automatically mean "skill".
 
@@ -19,7 +19,7 @@ Ask these before creating anything:
 2. How often will it recur?
 3. Does it need automatic triggering?
 4. Does it need bundled scripts, references, or assets?
-5. Is it global policy, domain capability, or a single tactic?
+5. Is it a scoped rule, domain capability, or a single tactic?
 6. Could an existing skill absorb it cleanly?
 
 ## Quick Comparison
@@ -29,7 +29,9 @@ Ask these before creating anything:
 | Direct answer | One-off help | No durable method is needed | The user clearly wants reuse |
 | Prompt | Reusable framing or method | Copy-paste use is enough; manual invocation is acceptable | The work needs auto-triggering or bundled resources |
 | Skill | Reusable capability | Needs a trigger surface, scripts, references, assets, or a durable philosophy | The scope is too narrow or should merge into an existing skill |
-| `AGENTS.md` / `CLAUDE.md` | Global rules | Stable across many domains and tasks | The rule only matters inside one capability area |
+| `AGENTS.md` / host equivalent | Rules for a user, repository, or subdirectory | Stable across tasks in that scope | The rule belongs to a selectively invoked capability |
+
+Choose the narrowest correct scope. Repository conventions belong with that repository; subdirectory exceptions belong near the affected files. Reserve user-wide instructions for cross-project rules. Check the host's discovery and precedence rules before installing scoped instructions.
 
 ## Prompt Or Skill?
 
