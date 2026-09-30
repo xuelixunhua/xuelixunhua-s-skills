@@ -1,6 +1,6 @@
 ---
 name: skill-creator
-description: Create, update, simplify, and validate reusable skills and prompts. Use to turn a recurring method into a skill, revise SKILL.md, preserve strategy philosophy while compressing instructions, improve triggers or bundled tools, or choose between a prompt, skill, and scoped project rules. One-off writing and ordinary task execution do not need this skill.
+description: "Create, revise, simplify, or validate reusable skills and prompts. Use for trigger design, instruction structure, and bundled resources; skip ordinary task execution."
 ---
 
 # Skill Creator

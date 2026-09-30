@@ -3,7 +3,7 @@
 ## 基础信息
 
 - 地址：`http://localhost:3456`
-- 仅在任务确实需要 CDP 时启动：`$SkillRoot = 'C:\Users\xueli\.codex\skills\web-access'; node "$SkillRoot\scripts\check-deps.mjs"`
+- 仅在任务确实需要 CDP 时启动：`$SkillRoot = Join-Path $HOME '.codex\skills\web-access'; node "$SkillRoot\scripts\check-deps.mjs"`
 - 前置检查负责启动和复用 Proxy；不要另起一个实例，也不要为了清理主动停止已复用的 Proxy
 - 支持 Chrome、Edge 和 Chromium；默认只操作 Agent 自己创建的后台 tab
 - PowerShell 中一律使用 `curl.exe`，避免 `curl` 被映射为 `Invoke-WebRequest`

@@ -1,6 +1,6 @@
 ---
 name: primitive-thinking
-description: "Use when the user wants to examine an idea, tool, product, workflow, agent, SaaS direction, or tech stack through primitive, niche-opportunity, and frugal-stack thinking: 找 primitive、solution vs primitive、小众怪货、高增长 SaaS、垂直流程、AI 操作员、技术栈选择、减少依赖、降低成本、独立开发、事前规划、事后反思、runway、可被 agent 调用的能力."
+description: "Examine products, workflows, or technology choices through primitives, niche opportunities, and frugal stacks. Use for opportunity discovery, stack tradeoffs, and agent-callable capabilities."
 ---
 
 # Primitive, Niche Opportunity, And Frugal Stack Thinking

@@ -1,6 +1,6 @@
 ---
 name: creator-content-knowledge-pipeline
-description: Turn a creator, channel, Bilibili UP, podcast, course, or video series into a maintainable vertical knowledge base. Use when the user asks to download or collect creator content, transcribe audio/video, classify episodes, build route/topic notes, create a GitHub/Notion/local knowledge repo, or productize this workflow into a reusable content knowledge pipeline. Especially relevant to B站视频、UP主内容库、林超类领域视频、虎牙青年 Plus、从视频到转写到总结、垂直知识库、知识资产、第三层知识库产品、第四层生产引擎.
+description: "Build or maintain a knowledge base from a creator, course, podcast, or video series, including collection, transcription, and synthesis. Use for sustained series ingestion."
 ---
 
 # Creator Content Knowledge Pipeline

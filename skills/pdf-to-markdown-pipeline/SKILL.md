@@ -1,6 +1,6 @@
 ---
 name: pdf-to-markdown-pipeline
-description: Convert PDFs into reliable, reusable Markdown and structured document artifacts through inspection, extraction, layout-aware structuring, evidence tracking, strict quality gates, review/backfill, and rebuild. Trigger for PDF 转 Markdown, PDF 结构化, OCR 清洗, PDF 公式/表格抽取, MinerU or similar document-conversion workflows. Do not use for a one-page plain-text extraction when no quality or structure work is needed.
+description: "Convert PDFs into traceable Markdown with reliable headings, tables, formulas, and OCR. Use for structured conversion, extraction repair, or quality review."
 ---
 
 # PDF to Markdown Pipeline

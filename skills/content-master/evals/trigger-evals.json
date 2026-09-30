@@ -121,6 +121,34 @@
       "should_trigger": false,
       "category": "specialist-learning",
       "rationale": "目标是理解、练习和迁移，应由学习教练能力负责。"
+    },
+    {
+      "id": "positive-execution-diagnosis",
+      "prompt": "同一个数据导入错误修了两次，单元测试通过，实际报表还是不对。帮我查清到底哪里出了问题，再选处理路径。",
+      "should_trigger": true,
+      "category": "execution-analysis-boundary",
+      "rationale": "未明原因、局部修复无效，需要跨步骤重新判断。"
+    },
+    {
+      "id": "positive-operational-choice",
+      "prompt": "旧系统接着补丁和迁移到新系统都能做，但交接、人力和长期维护成本互相牵制。请帮我判断怎么选，本轮不写代码。",
+      "should_trigger": true,
+      "category": "execution-analysis-boundary",
+      "rationale": "非写作场景的实质方案取舍。"
+    },
+    {
+      "id": "negative-known-fix",
+      "prompt": "错误已经确认是导出文件名中的月份写死了，请按现有日期变量替换并检查导出。",
+      "should_trigger": false,
+      "category": "execution-analysis-boundary",
+      "rationale": "已有明确原因和解法，专业执行即可。"
+    },
+    {
+      "id": "negative-transcribe-incident",
+      "prompt": "将这段已确认的故障原因压缩为两句话，只转述，不重新调查。",
+      "should_trigger": false,
+      "category": "execution-analysis-boundary",
+      "rationale": "只需忠实转述已有判断，不因出现故障词汇升级。"
     }
   ]
 }

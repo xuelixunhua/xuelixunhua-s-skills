@@ -27,7 +27,7 @@ The active control plane is [`SKILL.md`](SKILL.md). It keeps the upstream browse
 Only when a task needs CDP, run:
 
 ```powershell
-$SkillRoot = 'C:\Users\xueli\.codex\skills\web-access'
+$SkillRoot = Join-Path $HOME '.codex\skills\web-access'
 node "$SkillRoot\scripts\check-deps.mjs"
 ```
 

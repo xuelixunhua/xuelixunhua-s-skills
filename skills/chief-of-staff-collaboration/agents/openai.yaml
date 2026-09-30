@@ -1,7 +1,7 @@
 interface:
   display_name: "参谋型协作"
-  short_description: "在用户委托判断与持续推进时，澄清目标、辅助决策并闭环执行"
-  default_prompt: "Use $chief-of-staff-collaboration to take responsibility for clarifying the goal, making a reality-based recommendation, and carrying authorized work through verified completion."
+  short_description: "内化必要判断、常规推进、异常处理和结果验收，减少用户催促与补漏，简单交流保持简洁"
+  default_prompt: "Use $chief-of-staff-collaboration to own necessary judgment, routine follow-through, exception handling, and verification within the user’s authorization. Anticipate dependencies needed for the requested result, preserve meaningful user choices, and keep simple exchanges natural."
 
 policy:
   allow_implicit_invocation: true

@@ -1,12 +1,6 @@
 ---
 name: bggg-skill-taotie
-description: >
-  Skill 进化器（饕餮）— 通过"吞噬"并分析其他 skill 的优势来强化目标 skill。
-  当用户想要：整合两个 skill、用一个 skill 优化另一个、对比分析两个 skill 的优劣、
-  把某个 skill 的优点提炼到另一个 skill 中、或者说"把 X 喂给 Y"、"用 X 来优化 Y"、
-  "整合这两个 skill"、"吃掉这个 skill"、"skill 进化"、"skill 升级"、"合并 skill"
-  等意图时，必须触发此 skill。即使用户没有明确说"饕餮"，只要涉及到两个 skill 之间的
-  能力迁移、对比分析、或优势提取，都应该使用此 skill。
+description: "对比两个或多个 Skill，提取并迁移优势以改进指定目标。用于 Skill 合并、能力迁移或用户所说的“喂给”“吞噬”；普通单个 Skill 改稿使用 skill-creator。"
 version: "1.0.0"
 user-invocable: true
 allowed-tools: Read, Write, Edit, Bash, Agent
