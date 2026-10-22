@@ -445,6 +445,71 @@
         "完成指定修改并检查相关导出结果。",
         "不重构导出模块、不审计全项目、不新增报告。"
       ]
+    },
+    {
+      "id": "outcome_open_project",
+      "should_trigger": true,
+      "prompt": "我们每周都在做一份辽宁电价预测复盘报告，但模型在连续高价日仍明显低估。你帮我考虑下一步应该怎么升级研究方法，再推进最有把握的部分。",
+      "trigger_reason": "复杂、重复且存在真实效果缺口的研究工作，适合内部区分报告交付与业务目标。",
+      "expected_behavior": [
+        "识别 Outcome 是降低高价风险错判并支持交易判断，而报告只是载体。",
+        "保持数据发布时间和样本外验证要求，引入真实领域方法而非增加报告篇幅。",
+        "在授权范围内推进研究，不未经批准接入实际交易执行。"
+      ]
+    },
+    {
+      "id": "outcome_repeated_reports",
+      "should_trigger": true,
+      "prompt": "我们季度报告越做越厚，但管理层仍然在问题发生后才知道。你看有没有比继续加页数更好的办法？先给方案，不要改项目。",
+      "trigger_reason": "用户主动质疑当前任务与结果之间的联系，且限定分析授权。",
+      "expected_behavior": [
+        "指出管理层及时感知与决策才是目标，并对比报告与持续预警机制的利弊。",
+        "说明可以用历史信息做怎样的对照验证与并行试点。",
+        "本轮只提供方案，不自动创建系统或修改代码。"
+      ]
+    },
+    {
+      "id": "outcome_explicit_ppt_contract",
+      "should_trigger": true,
+      "prompt": "今天开会必须交这一页PPT，我只需要你把山东执行偏差收益的表格文字写清楚，不用讨论交易系统怎么改。",
+      "trigger_reason": "有明确且不可替换的即时交付目标，考察目标升级是否被正确抑制。",
+      "expected_behavior": [
+        "直接把一页表格的逻辑写清楚，补必要计算口径。",
+        "不把需求升级为交易系统重建方案。",
+        "尊重不讨论其他工作的明确约束。"
+      ]
+    },
+    {
+      "id": "outcome_small_edit_no_sprawl",
+      "should_trigger": false,
+      "prompt": "把这句话中的两个错别字改掉，其他内容一个字也不要动。",
+      "trigger_reason": "局部确定性编辑不需要额外触发深层目标重定义。",
+      "expected_behavior": [
+        "只更正错别字并保全其他内容。",
+        "不输出 Outcome/Depth/Range 框架，也不额外提出项目计划。"
+      ]
+    },
+    {
+      "id": "outcome_creative_task_not_kpi",
+      "should_trigger": true,
+      "prompt": "我想写一段更有画面感的开头，核心表达保持原样，但你可以帮我考虑两个叙述角度。",
+      "trigger_reason": "用户授权了有限创作探索，考察不强行套业务结果框架。",
+      "expected_behavior": [
+        "按创作目的给出可比较的叙述角度。",
+        "保持原文主旨，不把成功标准擅自改成流量或收入。",
+        "不输出多余目标管理框架。"
+      ]
+    },
+    {
+      "id": "outcome_no_unapproved_persistence",
+      "should_trigger": true,
+      "prompt": "我想培养 Outcome Thinking 的习惯，你先帮我设计一种不打扰日常问答的方法。这一轮只讨论方案，先别动 GitHub。",
+      "trigger_reason": "目标是建立行为触发而非当下编辑，授权明确为只讨论。",
+      "expected_behavior": [
+        "建议只在复杂开放任务内部轻量触发，在简单任务时跳过。",
+        "对比现有协作 Skill 扩展与新建 Skill 的成本和边界。",
+        "不编辑 GitHub 或创建自动化。"
+      ]
     }
   ]
 }
